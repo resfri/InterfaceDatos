@@ -1,0 +1,14 @@
+1;Jaime Salazar;28;HOMBRE;MALAsGA;20150228
+
+2;Jaime Salazar;28;HOMBRE;MALAGA;20150228
+
+3;Jaime Salazar;28;HOMBRE;MALAGAs;20150228
+
+4;Jaime Salazar;28;HOMBRE;MALAGA;20150228
+
+5;alfredo;24;hombre;sevilla;12092015
+
+5;alfredo;24;hombre;sevilla;12092015
+
+6;alfredo;24;hombre;sevilla;12092015
+
