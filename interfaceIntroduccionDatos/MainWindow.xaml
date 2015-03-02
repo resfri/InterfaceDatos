@@ -4,7 +4,7 @@
         Title="Ficha Paciente" Height="400" Width="600">
     <Grid Margin="0,0,0,-0.6" HorizontalAlignment="Left" Width="590">
 
-        <Image Height="261" Margin="354,67,-4,0" VerticalAlignment="Top" Source="C:\Users\Jaime\Documents\Visual Studio 2013\Projects\interfaceIntroduccionDatos\interfaceIntroduccionDatos\odontograma.jpg" IsEnabled="False"/>
+        <Image Height="261" Margin="354,67,-4,0" VerticalAlignment="Top" Source=".\Images\odontograma.jpg" IsEnabled="False"/>
         <Label Content="Identificación" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
         <Label Content="Nombre" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top"/>
         <Label Content="Edad" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
