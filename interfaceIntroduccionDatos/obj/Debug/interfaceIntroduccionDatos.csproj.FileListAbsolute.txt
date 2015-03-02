@@ -31,3 +31,6 @@ C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\
 C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.g.resources
 C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.Properties.Resources.resources
 C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.csproj.GenerateResource.Cache
+C:\Users\Fabian\Source\Repos\InterfaceDatos2\interfaceIntroduccionDatos\bin\Debug\interfaceIntroduccionDatos.exe.config
+C:\Users\Fabian\Source\Repos\InterfaceDatos2\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.exe
+C:\Users\Fabian\Source\Repos\InterfaceDatos2\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.pdb
