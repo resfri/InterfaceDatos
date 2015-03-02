@@ -14,3 +14,6 @@ c:\users\jaime\documents\visual studio 2013\Projects\interfaceIntroduccionDatos\
 C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\bin\Debug\interfaceIntroduccionDatos.exe.config
 C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.exe
 C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.pdb
+C:\Users\Fabian\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\bin\Debug\interfaceIntroduccionDatos.exe.config
+C:\Users\Fabian\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.exe
+C:\Users\Fabian\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.pdb
