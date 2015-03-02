@@ -17,3 +17,17 @@ C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\
 C:\Users\Fabian\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\bin\Debug\interfaceIntroduccionDatos.exe.config
 C:\Users\Fabian\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.exe
 C:\Users\Fabian\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.pdb
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\bin\Debug\interfaceIntroduccionDatos.exe
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\bin\Debug\interfaceIntroduccionDatos.pdb
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\bin\Debug\EntityFramework.dll
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\bin\Debug\EntityFramework.xml
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.csprojResolveAssemblyReference.cache
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\MainWindow.baml
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\MainWindow.g.cs
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\App.g.cs
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos_MarkupCompile.cache
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.g.resources
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.Properties.Resources.resources
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.csproj.GenerateResource.Cache
