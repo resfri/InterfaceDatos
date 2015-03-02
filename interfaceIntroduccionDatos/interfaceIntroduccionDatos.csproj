@@ -74,7 +74,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Paciente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -105,7 +104,12 @@
   <ItemGroup>
     <Resource Include="TextFile1.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MainCore\MainCore.csproj">
+      <Project>{c88ecbad-4d93-437a-8a71-48e834226a27}</Project>
+      <Name>MainCore</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\odontograma.jpg" />
   </ItemGroup>

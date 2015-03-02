@@ -4,11 +4,117 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="Model1TargetContainer">
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="PacienteSet" EntityType="Model1.Store.PacienteSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ImagenesSet" EntityType="Model1.Store.ImagenesSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="HistoriaClinicaSet" EntityType="Model1.Store.HistoriaClinicaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MPATSet" EntityType="Model1.Store.MPATSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="PacienteImagenes" Association="Model1.Store.PacienteImagenes">
+      <End Role="Paciente" EntitySet="PacienteSet" />
+      <End Role="Imagenes" EntitySet="ImagenesSet" />
+    </AssociationSet>
+    <AssociationSet Name="PacienteHistoriaClinica" Association="Model1.Store.PacienteHistoriaClinica">
+      <End Role="Paciente" EntitySet="PacienteSet" />
+      <End Role="HistoriaClinica" EntitySet="HistoriaClinicaSet" />
+    </AssociationSet>
+    <AssociationSet Name="MPATImagenes" Association="Model1.Store.MPATImagenes">
+      <End Role="MPAT" EntitySet="MPATSet" />
+      <End Role="Imagenes" EntitySet="ImagenesSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PacienteSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DNI" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Edad" Type="int" Nullable="false" />
+    <Property Name="Sexo" Type="int" Nullable="false" />
+    <Property Name="Ubicacion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ImagenesSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NumeroCiclos" Type="int" Nullable="false" />
+    <Property Name="NumeroToma" Type="int" Nullable="false" />
+    <Property Name="Cara" Type="int" Nullable="false" />
+    <Property Name="IdPaciente" Type="int" Nullable="false" />
+    <Property Name="IdMPAT" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HistoriaClinicaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Odontograma" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NumeroCariados" Type="int" Nullable="false" />
+    <Property Name="NumeroDientesPerdidos" Type="int" Nullable="false" />
+    <Property Name="NumeroDientesObturados" Type="int" Nullable="false" />
+    <Property Name="Ortodoncia" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Protesis" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Implantes" Type="int" Nullable="false" />
+    <Property Name="ParesAntagPerdidos" Type="int" Nullable="false" />
+    <Property Name="GradoEdentulismo" Type="int" Nullable="false" />
+    <Property Name="EstadoSaludGeneral" Type="bit" Nullable="false" />
+    <Property Name="EnfermedadCardioVascular" Type="bit" Nullable="false" />
+    <Property Name="EnfermedadRenal" Type="bit" Nullable="false" />
+    <Property Name="ICTUS" Type="bit" Nullable="false" />
+    <Property Name="ACV" Type="bit" Nullable="false" />
+    <Property Name="ParalisisFacial" Type="bit" Nullable="false" />
+    <Property Name="GradoDesnutricion" Type="int" Nullable="false" />
+    <Property Name="IdPaciente" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MPATSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="WikiURL" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AlimentoPrueba" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="PacienteImagenes">
+    <End Role="Paciente" Type="Model1.Store.PacienteSet" Multiplicity="1" />
+    <End Role="Imagenes" Type="Model1.Store.ImagenesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paciente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Imagenes">
+        <PropertyRef Name="IdPaciente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PacienteHistoriaClinica">
+    <End Role="Paciente" Type="Model1.Store.PacienteSet" Multiplicity="1" />
+    <End Role="HistoriaClinica" Type="Model1.Store.HistoriaClinicaSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paciente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HistoriaClinica">
+        <PropertyRef Name="IdPaciente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MPATImagenes">
+    <End Role="MPAT" Type="Model1.Store.MPATSet" Multiplicity="1" />
+    <End Role="Imagenes" Type="Model1.Store.ImagenesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MPAT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Imagenes">
+        <PropertyRef Name="IdMPAT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model1" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
@@ -17,6 +123,18 @@
           <EntitySet Name="ImagenesSet" EntityType="Model1.Imagenes" />
           <EntitySet Name="HistoriaClinicaSet" EntityType="Model1.HistoriaClinica" />
           <EntitySet Name="MPATSet" EntityType="Model1.MPAT" />
+          <AssociationSet Name="PacienteImagenes" Association="Model1.PacienteImagenes">
+            <End Role="Paciente" EntitySet="PacienteSet" />
+            <End Role="Imagenes" EntitySet="ImagenesSet" />
+          </AssociationSet>
+          <AssociationSet Name="PacienteHistoriaClinica" Association="Model1.PacienteHistoriaClinica">
+            <End Role="Paciente" EntitySet="PacienteSet" />
+            <End Role="HistoriaClinica" EntitySet="HistoriaClinicaSet" />
+          </AssociationSet>
+          <AssociationSet Name="MPATImagenes" Association="Model1.MPATImagenes">
+            <End Role="MPAT" EntitySet="MPATSet" />
+            <End Role="Imagenes" EntitySet="ImagenesSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Paciente">
           <Key>
@@ -28,7 +146,9 @@
           <Property Name="Edad" Type="Int32" Nullable="false" />
           <Property Name="Sexo" Type="Int32" Nullable="false" />
           <Property Name="Ubicacion" Type="String" Nullable="false" />
-          <Property Name="FechaRegistro" Type="Time" Nullable="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Imagenes" Relationship="Model1.PacienteImagenes" FromRole="Paciente" ToRole="Imagenes" />
+          <NavigationProperty Name="HistoriaClinica" Relationship="Model1.PacienteHistoriaClinica" FromRole="Paciente" ToRole="HistoriaClinica" />
         </EntityType>
         <EntityType Name="Imagenes">
           <Key>
@@ -38,6 +158,10 @@
           <Property Name="NumeroCiclos" Type="Int32" Nullable="false" />
           <Property Name="NumeroToma" Type="Int32" Nullable="false" />
           <Property Name="Cara" Type="Int32" Nullable="false" />
+          <Property Name="IdPaciente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Paciente" Relationship="Model1.PacienteImagenes" FromRole="Imagenes" ToRole="Paciente" />
+          <Property Name="IdMPAT" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MPAT" Relationship="Model1.MPATImagenes" FromRole="Imagenes" ToRole="MPAT" />
         </EntityType>
         <EntityType Name="HistoriaClinica">
           <Key>
@@ -60,6 +184,8 @@
           <Property Name="ACV" Type="Boolean" Nullable="false" />
           <Property Name="ParalisisFacial" Type="Boolean" Nullable="false" />
           <Property Name="GradoDesnutricion" Type="Int32" Nullable="false" />
+          <Property Name="IdPaciente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Paciente" Relationship="Model1.PacienteHistoriaClinica" FromRole="HistoriaClinica" ToRole="Paciente" />
         </EntityType>
         <EntityType Name="MPAT">
           <Key>
@@ -69,18 +195,111 @@
           <Property Name="Descripcion" Type="String" Nullable="false" />
           <Property Name="WikiURL" Type="String" Nullable="false" />
           <Property Name="AlimentoPrueba" Type="String" Nullable="false" />
+          <NavigationProperty Name="Imagenes" Relationship="Model1.MPATImagenes" FromRole="MPAT" ToRole="Imagenes" />
         </EntityType>
+        <Association Name="PacienteImagenes">
+          <End Type="Model1.Paciente" Role="Paciente" Multiplicity="1" />
+          <End Type="Model1.Imagenes" Role="Imagenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paciente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Imagenes">
+              <PropertyRef Name="IdPaciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PacienteHistoriaClinica">
+          <End Type="Model1.Paciente" Role="Paciente" Multiplicity="1" />
+          <End Type="Model1.HistoriaClinica" Role="HistoriaClinica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paciente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HistoriaClinica">
+              <PropertyRef Name="IdPaciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MPATImagenes">
+          <End Type="Model1.MPAT" Role="MPAT" Multiplicity="1" />
+          <End Type="Model1.Imagenes" Role="Imagenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MPAT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Imagenes">
+              <PropertyRef Name="IdMPAT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <Alias Key="Model" Value="Model1" />
-        <Alias Key="Target" Value="Model1.Store" />
-        <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1TargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="PacienteSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Paciente)">
+        <MappingFragment StoreEntitySet="PacienteSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Edad" ColumnName="Edad" />
+          <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+          <ScalarProperty Name="Ubicacion" ColumnName="Ubicacion" />
+          <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImagenesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Imagenes)">
+        <MappingFragment StoreEntitySet="ImagenesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NumeroCiclos" ColumnName="NumeroCiclos" />
+          <ScalarProperty Name="NumeroToma" ColumnName="NumeroToma" />
+          <ScalarProperty Name="Cara" ColumnName="Cara" />
+          <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+          <ScalarProperty Name="IdMPAT" ColumnName="IdMPAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HistoriaClinicaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.HistoriaClinica)">
+        <MappingFragment StoreEntitySet="HistoriaClinicaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Odontograma" ColumnName="Odontograma" />
+          <ScalarProperty Name="NumeroCariados" ColumnName="NumeroCariados" />
+          <ScalarProperty Name="NumeroDientesPerdidos" ColumnName="NumeroDientesPerdidos" />
+          <ScalarProperty Name="NumeroDientesObturados" ColumnName="NumeroDientesObturados" />
+          <ScalarProperty Name="Ortodoncia" ColumnName="Ortodoncia" />
+          <ScalarProperty Name="Protesis" ColumnName="Protesis" />
+          <ScalarProperty Name="Implantes" ColumnName="Implantes" />
+          <ScalarProperty Name="ParesAntagPerdidos" ColumnName="ParesAntagPerdidos" />
+          <ScalarProperty Name="GradoEdentulismo" ColumnName="GradoEdentulismo" />
+          <ScalarProperty Name="EstadoSaludGeneral" ColumnName="EstadoSaludGeneral" />
+          <ScalarProperty Name="EnfermedadCardioVascular" ColumnName="EnfermedadCardioVascular" />
+          <ScalarProperty Name="EnfermedadRenal" ColumnName="EnfermedadRenal" />
+          <ScalarProperty Name="ICTUS" ColumnName="ICTUS" />
+          <ScalarProperty Name="ACV" ColumnName="ACV" />
+          <ScalarProperty Name="ParalisisFacial" ColumnName="ParalisisFacial" />
+          <ScalarProperty Name="GradoDesnutricion" ColumnName="GradoDesnutricion" />
+          <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MPATSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.MPAT)">
+        <MappingFragment StoreEntitySet="MPATSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="WikiURL" ColumnName="WikiURL" />
+          <ScalarProperty Name="AlimentoPrueba" ColumnName="AlimentoPrueba" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer>
@@ -94,6 +313,7 @@
         <edmx:DesignerProperty Name="ValidateOnBuild" Value="true" />
         <edmx:DesignerProperty Name="EnablePluralization" Value="False" />
         <edmx:DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <edmx:DesignerProperty Name="UseLegacyProvider" Value="False" />
       </edmx:DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->

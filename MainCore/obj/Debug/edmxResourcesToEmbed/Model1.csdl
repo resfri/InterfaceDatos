@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model1" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+  <EntityContainer Name="Model1Container">
+    <EntitySet Name="PacienteSet" EntityType="Model1.Paciente" />
+    <EntitySet Name="ImagenesSet" EntityType="Model1.Imagenes" />
+    <EntitySet Name="HistoriaClinicaSet" EntityType="Model1.HistoriaClinica" />
+    <EntitySet Name="MPATSet" EntityType="Model1.MPAT" />
+    <AssociationSet Name="PacienteImagenes" Association="Model1.PacienteImagenes">
+      <End Role="Paciente" EntitySet="PacienteSet" />
+      <End Role="Imagenes" EntitySet="ImagenesSet" />
+    </AssociationSet>
+    <AssociationSet Name="PacienteHistoriaClinica" Association="Model1.PacienteHistoriaClinica">
+      <End Role="Paciente" EntitySet="PacienteSet" />
+      <End Role="HistoriaClinica" EntitySet="HistoriaClinicaSet" />
+    </AssociationSet>
+    <AssociationSet Name="MPATImagenes" Association="Model1.MPATImagenes">
+      <End Role="MPAT" EntitySet="MPATSet" />
+      <End Role="Imagenes" EntitySet="ImagenesSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Paciente">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DNI" Type="String" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" />
+    <Property Name="Edad" Type="Int32" Nullable="false" />
+    <Property Name="Sexo" Type="Int32" Nullable="false" />
+    <Property Name="Ubicacion" Type="String" Nullable="false" />
+    <Property Name="FechaRegistro" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Imagenes" Relationship="Model1.PacienteImagenes" FromRole="Paciente" ToRole="Imagenes" />
+    <NavigationProperty Name="HistoriaClinica" Relationship="Model1.PacienteHistoriaClinica" FromRole="Paciente" ToRole="HistoriaClinica" />
+  </EntityType>
+  <EntityType Name="Imagenes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NumeroCiclos" Type="Int32" Nullable="false" />
+    <Property Name="NumeroToma" Type="Int32" Nullable="false" />
+    <Property Name="Cara" Type="Int32" Nullable="false" />
+    <Property Name="IdPaciente" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Paciente" Relationship="Model1.PacienteImagenes" FromRole="Imagenes" ToRole="Paciente" />
+    <Property Name="IdMPAT" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MPAT" Relationship="Model1.MPATImagenes" FromRole="Imagenes" ToRole="MPAT" />
+  </EntityType>
+  <EntityType Name="HistoriaClinica">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Odontograma" Type="String" Nullable="false" />
+    <Property Name="NumeroCariados" Type="Int32" Nullable="false" />
+    <Property Name="NumeroDientesPerdidos" Type="Int32" Nullable="false" />
+    <Property Name="NumeroDientesObturados" Type="Int32" Nullable="false" />
+    <Property Name="Ortodoncia" Type="String" Nullable="false" />
+    <Property Name="Protesis" Type="String" Nullable="false" />
+    <Property Name="Implantes" Type="Int32" Nullable="false" />
+    <Property Name="ParesAntagPerdidos" Type="Int32" Nullable="false" />
+    <Property Name="GradoEdentulismo" Type="Int32" Nullable="false" />
+    <Property Name="EstadoSaludGeneral" Type="Boolean" Nullable="false" />
+    <Property Name="EnfermedadCardioVascular" Type="Boolean" Nullable="false" />
+    <Property Name="EnfermedadRenal" Type="Boolean" Nullable="false" />
+    <Property Name="ICTUS" Type="Boolean" Nullable="false" />
+    <Property Name="ACV" Type="Boolean" Nullable="false" />
+    <Property Name="ParalisisFacial" Type="Boolean" Nullable="false" />
+    <Property Name="GradoDesnutricion" Type="Int32" Nullable="false" />
+    <Property Name="IdPaciente" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Paciente" Relationship="Model1.PacienteHistoriaClinica" FromRole="HistoriaClinica" ToRole="Paciente" />
+  </EntityType>
+  <EntityType Name="MPAT">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" Nullable="false" />
+    <Property Name="WikiURL" Type="String" Nullable="false" />
+    <Property Name="AlimentoPrueba" Type="String" Nullable="false" />
+    <NavigationProperty Name="Imagenes" Relationship="Model1.MPATImagenes" FromRole="MPAT" ToRole="Imagenes" />
+  </EntityType>
+  <Association Name="PacienteImagenes">
+    <End Type="Model1.Paciente" Role="Paciente" Multiplicity="1" />
+    <End Type="Model1.Imagenes" Role="Imagenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paciente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Imagenes">
+        <PropertyRef Name="IdPaciente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PacienteHistoriaClinica">
+    <End Type="Model1.Paciente" Role="Paciente" Multiplicity="1" />
+    <End Type="Model1.HistoriaClinica" Role="HistoriaClinica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paciente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HistoriaClinica">
+        <PropertyRef Name="IdPaciente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MPATImagenes">
+    <End Type="Model1.MPAT" Role="MPAT" Multiplicity="1" />
+    <End Type="Model1.Imagenes" Role="Imagenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MPAT">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Imagenes">
+        <PropertyRef Name="IdMPAT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
