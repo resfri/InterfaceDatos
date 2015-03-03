@@ -246,6 +246,19 @@ namespace interfaceIntroduccionDatos
 
             rb_f.IsChecked = false;
             rb_m.IsChecked = false;
+
+            D11.IsChecked = true; D12.IsChecked = true; D13.IsChecked = true; D14.IsChecked = true;
+            D15.IsChecked = true; D16.IsChecked = true; D17.IsChecked = true; D18.IsChecked = true;
+
+            D21.IsChecked = true; D22.IsChecked = true; D23.IsChecked = true; D24.IsChecked = true;
+            D25.IsChecked = true; D26.IsChecked = true; D27.IsChecked = true; D28.IsChecked = true;
+
+            D31.IsChecked = true; D32.IsChecked = true; D33.IsChecked = true; D34.IsChecked = true;
+            D35.IsChecked = true; D36.IsChecked = true; D37.IsChecked = true; D38.IsChecked = true;
+
+            D41.IsChecked = true; D42.IsChecked = true; D43.IsChecked = true; D44.IsChecked = true;
+            D45.IsChecked = true; D46.IsChecked = true; D47.IsChecked = true; D48.IsChecked = true;
+
         }
 
         private void grabarFicheroPaciente(Paciente paciente)
@@ -317,6 +330,53 @@ namespace interfaceIntroduccionDatos
             //txtfechaRegistro.Text = paciente.getFechaRegistro();
             //bGrabarPac.IsEnabled = false;
             //MessageBox.Show("OK", "Buscar Paciente");
+            Metodos metodos = new Metodos();
+            N_Paciente paciente = new N_Paciente();
+            N_Historia historia = new N_Historia();
+            paciente.DNI = txtidentificacion.Text;
+
+            if( metodos.getPacienteId(paciente.DNI,paciente)){
+                pintaPaciente(paciente);
+                if(metodos.getHistoriaId(paciente.Id, historia)){
+
+                }
+                pintaHistoria(historia);
+            }else{
+                MessageBox.Show("Error al registrar paciente");
+            }
+
+            
+        }
+
+        private void pintaHistoria(N_Historia historia)
+        {
+            String odontograma = historia.Odontograma;
+
+            
+        }
+
+        private void pintaPaciente(N_Paciente paciente)
+        {
+            txtedad.Text = paciente.Edad.ToString();
+            txtidentificacion.Text = paciente.DNI;
+            txtnombre.Text = paciente.Nombre;
+            txtubicacion.Text = paciente.Ubicacion;
+
+            if(paciente.Sexo==1){
+                rb_f.IsChecked = false;
+                rb_m.IsChecked = true;
+            }
+            else if (paciente.Sexo==2){
+                rb_f.IsChecked = true;
+                rb_m.IsChecked = false;
+            }
+            else
+            {
+                rb_f.IsChecked = false;
+                rb_m.IsChecked = false;
+            }
+
+            
         }
 
 

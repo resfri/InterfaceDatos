@@ -290,12 +290,12 @@ namespace MainCore
         }
 
         /// <summary>
-        /// Obtiene un registro de Paciente de la base de datos por DNI
+        /// Obtiene un registro de Paciente de la base de datos por dni
         /// </summary>
         /// <param name="dni">Id del paciente</param>
         /// <param name="pac">Referencia a Objeto N_Paciente</param>
         /// <returns>Retorna Id si existe, si error retorna 0</returns>
-        public Int32 getPacienteId(N_Paciente pac)
+        public Boolean getPacienteId(String dni, N_Paciente pac)
         {
             using (Model1Container Context = new Model1Container())
             {
@@ -319,21 +319,71 @@ namespace MainCore
                         pac.Sexo = xdf.arecord.Sexo;
                         pac.Ubicacion = xdf.arecord.Ubicacion;
                         pac.FechaRegistro = xdf.arecord.FechaRegistro;
-                        return pac.Id;
+                        return true;
                     }
                     else
                     {
-                        return 0;
+                        return false;
                     }
                 }
                 catch (Exception e)
                 {
                     Console.Write("Error " + e);
-                    return 0;
+                    return false;
                 }
             }
         }
 
+
+        public bool getHistoriaId(Int32 p, N_Historia historia)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.HistoriaClinicaSet
+                           where arecord.IdPaciente==p
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+
+                        historia.Odontograma= xdf.arecord.Odontograma;
+                        historia.ACV = xdf.arecord.ACV;
+                        historia.EnfermedadCardioVascular = xdf.arecord.EnfermedadCardioVascular;
+                        historia.EnfermedadRenal = xdf.arecord.EnfermedadRenal;
+                        historia.EstadoSaludGeneral = xdf.arecord.EstadoSaludGeneral;
+                        historia.GradoDesnutricion = xdf.arecord.GradoDesnutricion;
+                        historia.GradoEdentulismo = xdf.arecord.GradoEdentulismo;
+                        historia.ICTUS = xdf.arecord.ICTUS;
+                        historia.Id = xdf.arecord.Id;
+                        historia.IdPaciente = xdf.arecord.IdPaciente;
+                        historia.Implantes = xdf.arecord.Implantes;
+                        historia.NumeroCariados = xdf.arecord.NumeroCariados;
+                        historia.NumeroDientesObturados = xdf.arecord.NumeroDientesObturados;
+                        historia.NumeroDientesPerdidos = xdf.arecord.NumeroDientesPerdidos;
+                        historia.Ortodoncia = xdf.arecord.Ortodoncia;
+                        historia.ParalisisFacial = xdf.arecord.ParalisisFacial;
+                        historia.ParesAntagPerdidos = xdf.arecord.ParesAntagPerdidos;
+                        historia.Protesis = xdf.arecord.Protesis;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
     }
 
 

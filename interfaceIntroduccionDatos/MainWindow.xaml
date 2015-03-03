@@ -55,8 +55,8 @@
         <CheckBox Name="D43" Content="" HorizontalAlignment="Left" Margin="425,299,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox Name="D33" Content="" HorizontalAlignment="Left" Margin="506,299,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <Separator HorizontalAlignment="Left" Height="14" Margin="12,236,0,0" VerticalAlignment="Top" Width="337"/>
-        <Button Content="Obtener Imágen" HorizontalAlignment="Left" Margin="84,293,0,0" VerticalAlignment="Top" Width="125"/>
-        <Label Content="IMAGEN PRUEBA MASTICATORIA" HorizontalAlignment="Left" Margin="53,253,0,0" VerticalAlignment="Top"/>
+        <Button Content="Obtener Imágen" HorizontalAlignment="Left" Margin="12,284,0,0" VerticalAlignment="Top" Width="125"/>
+        <Label Content="IMAGEN PRUEBA MASTICATORIA" HorizontalAlignment="Left" Margin="12,251,0,0" VerticalAlignment="Top"/>
         <CheckBox Name="D47" Content="" HorizontalAlignment="Left" Margin="396,232,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox Name="D48" Content="" HorizontalAlignment="Left" Margin="396,212,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox Name="D37" Content="" HorizontalAlignment="Left" Margin="536,232,0,0" VerticalAlignment="Top" IsChecked="True"/>
@@ -68,6 +68,7 @@
         <Button Click="leerFicheroPaciente" Content="Leer" HorizontalAlignment="Left" Margin="259,70,0,0" VerticalAlignment="Top" Width="95" IsEnabled="False" Visibility="Hidden"/>
         <RadioButton x:Name="rb_m" Content="Masculino" HorizontalAlignment="Left" Margin="108,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.607,0.667" GroupName="rb_sexo"/>
         <RadioButton x:Name="rb_f" Content="Femenino" HorizontalAlignment="Left" Margin="198,126,0,0" VerticalAlignment="Top" GroupName="rb_sexo"/>
+        <Label x:Name="rutaImagen" Content="" HorizontalAlignment="Left" Margin="12,317,0,0" VerticalAlignment="Top" Width="337"/>
 
     </Grid>
 </Window>
