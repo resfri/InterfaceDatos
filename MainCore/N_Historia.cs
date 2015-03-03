@@ -9,7 +9,7 @@ namespace MainCore
 {
     [DataContract]
     [Serializable]
-    class N_Historia
+    public class N_Historia
     {
         [DataMember]
         public Int32 Id { get; set; }
@@ -46,7 +46,7 @@ namespace MainCore
         [DataMember]
         public Boolean ParalisisFacial { get; set; }
         [DataMember]
-        public Boolean GradoDesnutricion { get; set; }
+        public Int32 GradoDesnutricion { get; set; }
 
         /// <summary>
         /// Constructor general de la clase N_Paciente
@@ -70,7 +70,7 @@ namespace MainCore
             ICTUS = false;
             ACV = false;
             ParalisisFacial = false;
-            GradoDesnutricion = false;
+            GradoDesnutricion = 0;
 
         }
     }

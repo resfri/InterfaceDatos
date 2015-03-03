@@ -37,6 +37,7 @@ namespace interfaceIntroduccionDatos
 
             //Nueva instancia de N_Paciente
             N_Paciente nuevopaciente = new N_Paciente();
+            N_Historia historia = new N_Historia();
             //Nueva instancia de Metoods
             Metodos metodos = new Metodos();
 
@@ -57,13 +58,24 @@ namespace interfaceIntroduccionDatos
                 return;
             }
             nuevopaciente.Ubicacion = txtidentificacion.Text;
+            //inicializa el odontograma de la historia, inicializa ParesAntagPerdidos y DientesPerdidos
+            saveOdontograma(historia); // cambiar a inicializar historia recibiendo el vector¿?¿?
 
-
-
+            
             if(metodos.NuevoPaciente(nuevopaciente))
             {
-                MessageBox.Show("Paciente registrado con éxito");
-                resetview();
+                                      
+                    MessageBox.Show("Paciente registrado con éxito");
+                    
+                    if (metodos.addHistoria(historia, nuevopaciente)) {
+                        MessageBox.Show("Historia registrada con éxito");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al registrar historia del paciente"+ nuevopaciente.DNI);
+                    }
+                    resetview();
+                
             }
             else
             {
@@ -72,17 +84,15 @@ namespace interfaceIntroduccionDatos
 
         }
 
-        private void saveOdontograma(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Captura de la vista los datos del odontograma, contarDientesPerdidos, contarParesAntagPerdidos 
+        /// </summary>
+        private void saveOdontograma(N_Historia historia)
         {
             String[] odontograma = new String[32];
             N_Paciente paciente = new N_Paciente();
-
-            
             Metodos metodos = new Metodos();
-            if(txtidentificacion.Text!= string.Empty){
-                if (metodos.getPacienteDNI(txtidentificacion.Text, paciente))
-                {
-                    MessageBox.Show("Paciente existe");
+                        
                     for (Int32 i = 0; i <= 31; i++)
                     {
                         odontograma[i] = "T";
@@ -217,22 +227,9 @@ namespace interfaceIntroduccionDatos
                     {
                         odontograma[31] = "F";
                     }
-
-                    if (metodos.NuevoOdontograma(odontograma, paciente.Id))
-                    {
-                        MessageBox.Show("Paciente registrado con éxito");
-                        resetview();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Error al registrar paciente");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Paciente no existe - Grabar antes");
-                }
-            }
+                    historia.NumeroDientesPerdidos = metodos.contarDientesPerdidos(odontograma);
+                    historia.ParesAntagPerdidos = metodos.contarParesAntagPerdidos(odontograma);
+                    historia.Odontograma = odontograma.ToString();
             
         }
 

@@ -10,11 +10,11 @@
         <Label Content="Edad" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
         <Label Content="Sexo" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top"/>
         <Label Content="Ubicación" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="txtidentificacion" HorizontalAlignment="Left" Height="23" Margin="119,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
-        <Button Click="buscarPaciente" Content="Buscar Paciente" HorizontalAlignment="Left" Margin="53,189,0,0" VerticalAlignment="Top" Width="112"/>
-        <TextBox Name="txtnombre" HorizontalAlignment="Left" Height="23" Margin="119,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
-        <TextBox Name="txtedad" HorizontalAlignment="Left" Height="23" Margin="119,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
-        <TextBox Name="txtubicacion" HorizontalAlignment="Left" Height="23" Margin="119,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
+        <TextBox Name="txtidentificacion" HorizontalAlignment="Left" Height="23" Margin="108,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
+        <Button Click="buscarPaciente" Content="Buscar Paciente" HorizontalAlignment="Left" Margin="248,43,0,0" VerticalAlignment="Top" Width="112"/>
+        <TextBox Name="txtnombre" HorizontalAlignment="Left" Height="23" Margin="108,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
+        <TextBox Name="txtedad" HorizontalAlignment="Left" Height="23" Margin="108,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
+        <TextBox Name="txtubicacion" HorizontalAlignment="Left" Height="23" Margin="108,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
         <Separator HorizontalAlignment="Left" Height="14" Margin="195,175,0,0" VerticalAlignment="Top" Width="340" RenderTransformOrigin="0.5,0.5">
             <Separator.RenderTransform>
                 <TransformGroup>
@@ -25,7 +25,7 @@
                 </TransformGroup>
             </Separator.RenderTransform>
         </Separator>
-        <Button Name="bGrabarPac" Click="grabarDatos" Content="Grabar Datos" HorizontalAlignment="Left" Margin="209,189,0,0" VerticalAlignment="Top" Width="97" ClickMode="Press"/>
+        <Button Name="bGrabarPac" Click="grabarDatos" Content="Grabar Datos" HorizontalAlignment="Left" Margin="263,195,0,0" VerticalAlignment="Top" Width="97" ClickMode="Press"/>
         <CheckBox Name="D18" Content="" HorizontalAlignment="Left" Margin="396,162,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox Name="D17" Content="" HorizontalAlignment="Left" Margin="396,142,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox Name="D16" Content="" HorizontalAlignment="Left" Margin="396,126,0,0" VerticalAlignment="Top" IsChecked="True"/>
@@ -54,7 +54,6 @@
         <CheckBox Name="D41" Content="" HorizontalAlignment="Left" Margin="457,317,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox Name="D43" Content="" HorizontalAlignment="Left" Margin="425,299,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox Name="D33" Content="" HorizontalAlignment="Left" Margin="506,299,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <Button  Click="saveOdontograma" Name="bt_Odontograma" Content="Grabar Datos" HorizontalAlignment="Left" Margin="495,333,0,0" VerticalAlignment="Top" Width="85" />
         <Separator HorizontalAlignment="Left" Height="14" Margin="12,236,0,0" VerticalAlignment="Top" Width="337"/>
         <Button Content="Obtener Imágen" HorizontalAlignment="Left" Margin="84,293,0,0" VerticalAlignment="Top" Width="125"/>
         <Label Content="IMAGEN PRUEBA MASTICATORIA" HorizontalAlignment="Left" Margin="53,253,0,0" VerticalAlignment="Top"/>
@@ -63,12 +62,12 @@
         <CheckBox Name="D37" Content="" HorizontalAlignment="Left" Margin="536,232,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox Name="D38" Content="" HorizontalAlignment="Left" Margin="536,212,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <Label Content="EXPLORACIÓN CLINICA" HorizontalAlignment="Left" Margin="407,12,0,0" VerticalAlignment="Top"/>
-        
+
 
         <Label Content="DATOS DEL PACIENTE" HorizontalAlignment="Left" Margin="53,12,0,0" VerticalAlignment="Top"/>
         <Button Click="leerFicheroPaciente" Content="Leer" HorizontalAlignment="Left" Margin="259,70,0,0" VerticalAlignment="Top" Width="95" IsEnabled="False" Visibility="Hidden"/>
-        <RadioButton x:Name="rb_m" Content="Masculino" HorizontalAlignment="Left" Margin="119,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.607,0.667" GroupName="rb_sexo"/>
-        <RadioButton x:Name="rb_f" Content="Femenino" HorizontalAlignment="Left" Margin="209,126,0,0" VerticalAlignment="Top" GroupName="rb_sexo"/>
+        <RadioButton x:Name="rb_m" Content="Masculino" HorizontalAlignment="Left" Margin="108,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.607,0.667" GroupName="rb_sexo"/>
+        <RadioButton x:Name="rb_f" Content="Femenino" HorizontalAlignment="Left" Margin="198,126,0,0" VerticalAlignment="Top" GroupName="rb_sexo"/>
 
     </Grid>
 </Window>
