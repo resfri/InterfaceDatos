@@ -59,7 +59,7 @@ namespace interfaceIntroduccionDatos
             }
             nuevopaciente.Ubicacion = txtidentificacion.Text;
             //inicializa el odontograma de la historia, inicializa ParesAntagPerdidos y DientesPerdidos
-            saveOdontograma(historia); // cambiar a inicializar historia recibiendo el vector¿?¿?
+            getHistoria(historia); // cambiar a inicializar historia recibiendo el vector¿?¿?
 
             
             if(metodos.NuevoPaciente(nuevopaciente))
@@ -87,7 +87,7 @@ namespace interfaceIntroduccionDatos
         /// <summary>
         /// Captura de la vista los datos del odontograma, contarDientesPerdidos, contarParesAntagPerdidos 
         /// </summary>
-        private void saveOdontograma(N_Historia historia)
+        private void getHistoria(N_Historia historia)
         {
             String[] odontograma = new String[32];
             N_Paciente paciente = new N_Paciente();
