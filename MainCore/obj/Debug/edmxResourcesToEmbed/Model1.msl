@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="PacienteSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Paciente)">
+        <MappingFragment StoreEntitySet="PacienteSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Edad" ColumnName="Edad" />
+          <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+          <ScalarProperty Name="Ubicacion" ColumnName="Ubicacion" />
+          <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImagenesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Imagenes)">
+        <MappingFragment StoreEntitySet="ImagenesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NumeroCiclos" ColumnName="NumeroCiclos" />
+          <ScalarProperty Name="NumeroToma" ColumnName="NumeroToma" />
+          <ScalarProperty Name="Cara" ColumnName="Cara" />
+          <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+          <ScalarProperty Name="IdMPAT" ColumnName="IdMPAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HistoriaClinicaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.HistoriaClinica)">
+        <MappingFragment StoreEntitySet="HistoriaClinicaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Odontograma" ColumnName="Odontograma" />
+          <ScalarProperty Name="NumeroCariados" ColumnName="NumeroCariados" />
+          <ScalarProperty Name="NumeroDientesPerdidos" ColumnName="NumeroDientesPerdidos" />
+          <ScalarProperty Name="NumeroDientesObturados" ColumnName="NumeroDientesObturados" />
+          <ScalarProperty Name="Ortodoncia" ColumnName="Ortodoncia" />
+          <ScalarProperty Name="Protesis" ColumnName="Protesis" />
+          <ScalarProperty Name="Implantes" ColumnName="Implantes" />
+          <ScalarProperty Name="ParesAntagPerdidos" ColumnName="ParesAntagPerdidos" />
+          <ScalarProperty Name="GradoEdentulismo" ColumnName="GradoEdentulismo" />
+          <ScalarProperty Name="EstadoSaludGeneral" ColumnName="EstadoSaludGeneral" />
+          <ScalarProperty Name="EnfermedadCardioVascular" ColumnName="EnfermedadCardioVascular" />
+          <ScalarProperty Name="EnfermedadRenal" ColumnName="EnfermedadRenal" />
+          <ScalarProperty Name="ICTUS" ColumnName="ICTUS" />
+          <ScalarProperty Name="ACV" ColumnName="ACV" />
+          <ScalarProperty Name="ParalisisFacial" ColumnName="ParalisisFacial" />
+          <ScalarProperty Name="GradoDesnutricion" ColumnName="GradoDesnutricion" />
+          <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MPATSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.MPAT)">
+        <MappingFragment StoreEntitySet="MPATSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="WikiURL" ColumnName="WikiURL" />
+          <ScalarProperty Name="AlimentoPrueba" ColumnName="AlimentoPrueba" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
