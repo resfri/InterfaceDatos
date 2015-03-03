@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MainCore
 {
-    public class Class1
+    class Class2
     {
     }
 }
