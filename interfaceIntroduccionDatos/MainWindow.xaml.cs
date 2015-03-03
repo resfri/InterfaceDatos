@@ -71,6 +71,172 @@ namespace interfaceIntroduccionDatos
             }
 
         }
+
+        private void saveOdontograma(object sender, RoutedEventArgs e)
+        {
+            String[] odontograma = new String[32];
+            N_Paciente paciente = new N_Paciente();
+
+            
+            Metodos metodos = new Metodos();
+            if(txtidentificacion.Text!= string.Empty){
+                if (metodos.getPacienteDNI(txtidentificacion.Text, paciente))
+                {
+                    MessageBox.Show("Paciente existe");
+                    for (Int32 i = 0; i <= 31; i++)
+                    {
+                        odontograma[i] = "T";
+                    }
+                    if (D11.IsChecked == false)
+                    {
+                        odontograma[0] = "F";
+                    }
+                    if (D12.IsChecked==false){
+                        odontograma[1] = "F";
+                    }
+                    if (D13.IsChecked == false)
+                    {
+                        odontograma[2] = "F";
+                    }
+                    if (D14.IsChecked == false)
+                    {
+                        odontograma[3] = "F";
+                    }
+                    if (D15.IsChecked == false)
+                    {
+                        odontograma[4] = "F";
+                    }
+                    if (D16.IsChecked == false)
+                    {
+                        odontograma[5] = "F";
+                    }
+                    if (D17.IsChecked == false)
+                    {
+                        odontograma[6] = "F";
+                    }
+                    if (D18.IsChecked == false)
+                    {
+                        odontograma[7] = "F";
+                    }
+                    //
+                    if (D21.IsChecked == false)
+                    {
+                        odontograma[8] = "F";
+                    }
+                    if (D22.IsChecked == false)
+                    {
+                        odontograma[9] = "F";
+                    }
+                    if (D23.IsChecked == false)
+                    {
+                        odontograma[10] = "F";
+                    }
+                    if (D24.IsChecked == false)
+                    {
+                        odontograma[11] = "F";
+                    }
+                    if (D25.IsChecked == false)
+                    {
+                        odontograma[12] = "F";
+                    }
+                    if (D26.IsChecked == false)
+                    {
+                        odontograma[13] = "F";
+                    }
+                    if (D27.IsChecked == false)
+                    {
+                        odontograma[14] = "F";
+                    }
+                    if (D28.IsChecked == false)
+                    {
+                        odontograma[15] = "F";
+                    }
+                    //
+                    if (D31.IsChecked == false)
+                    {
+                        odontograma[16] = "F";
+                    }
+                    if (D32.IsChecked == false)
+                    {
+                        odontograma[17] = "F";
+                    }
+                    if (D33.IsChecked == false)
+                    {
+                        odontograma[18] = "F";
+                    }
+                    if (D34.IsChecked == false)
+                    {
+                        odontograma[19] = "F";
+                    }
+                    if (D35.IsChecked == false)
+                    {
+                        odontograma[20] = "F";
+                    }
+                    if (D36.IsChecked == false)
+                    {
+                        odontograma[21] = "F";
+                    }
+                    if (D37.IsChecked == false)
+                    {
+                        odontograma[22] = "F";
+                    }
+                    if (D38.IsChecked == false)
+                    {
+                        odontograma[23] = "F";
+                    }
+                    //
+                    if (D41.IsChecked == false)
+                    {
+                        odontograma[24] = "F";
+                    }
+                    if (D42.IsChecked == false)
+                    {
+                        odontograma[25] = "F";
+                    }
+                    if (D43.IsChecked == false)
+                    {
+                        odontograma[26] = "F";
+                    }
+                    if (D44.IsChecked == false)
+                    {
+                        odontograma[27] = "F";
+                    }
+                    if (D45.IsChecked == false)
+                    {
+                        odontograma[28] = "F";
+                    }
+                    if (D46.IsChecked == false)
+                    {
+                        odontograma[29] = "F";
+                    }
+                    if (D47.IsChecked == false)
+                    {
+                        odontograma[30] = "F";
+                    }
+                    if (D48.IsChecked == false)
+                    {
+                        odontograma[31] = "F";
+                    }
+
+                    if (metodos.NuevoOdontograma(odontograma, paciente.Id))
+                    {
+                        MessageBox.Show("Paciente registrado con éxito");
+                        resetview();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al registrar paciente");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Paciente no existe - Grabar antes");
+                }
+            }
+            
+        }
+
+
         /// <summary>
         /// Resetea los controles en la ventana principal
         /// </summary>
@@ -156,52 +322,6 @@ namespace interfaceIntroduccionDatos
             //MessageBox.Show("OK", "Buscar Paciente");
         }
 
-        //private Paciente buscaPaciente(String idPaciente)
-        //{
-        //    Paciente paciente = new Paciente();
-        //    paciente.setIdentificacion(idPaciente);
-        //    int counter = 0;
-        //    string line;
-        //    Paciente pac;
-
-        //    // Read the file and display it line by line.
-        //    StreamReader file = new StreamReader("Salida.txt");
-
-        //    while ((line = file.ReadLine()) != null)
-        //    {
-        //        Console.WriteLine(line);
-        //        String[] linea = line.Split(';');
-                
-        //        if (idPaciente.CompareTo(linea[0]) == 0)
-        //        {
-        //            if (linea[0]!=null)
-        //            {
-        //                //se pierde buscando el vacio!
-        //                pac = new Paciente(linea[0], linea[1], linea[2], linea[3], linea[4], linea[5]);
-        //                Console.Write(pac.toString());
-        //                return pac;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            counter++;
-        //        }
-
-
-        //    }
-        //    Console.Write(counter);
-
-        //    file.Close();
-
-        //    // buscar en base de datos el paciente
-        //    return paciente;
-        //}
-
-
-        //private void grabarExploracionClinica(object sender, RoutedEventArgs e)
-        //{
-        //    MessageBox.Show("OK", "Exploracion");
-        //}
 
     }
 }

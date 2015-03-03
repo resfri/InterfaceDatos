@@ -13,10 +13,8 @@ namespace MainCore
     {
         [DataMember]
         public Int32 Id { get; set; }
-
         [DataMember]
         public String DNI { get; set; }
-
         [DataMember]
         public String Nombre { get; set; }
         [DataMember]
@@ -42,10 +40,5 @@ namespace MainCore
             FechaRegistro = DateTime.Now;
 
         }
-
-
-
-
-
     }
 }
