@@ -384,6 +384,61 @@ namespace MainCore
                 }
             }
         }
+
+        ////////////////////////////////////
+
+        //HAY QUE CREAR LA CLASE NUEVA PARA PODER GUARDAR LOS RESULTADOS DEL JOIN
+        ///
+
+        public bool listarPacientesHistorias <T>(List<T> listado)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.PacienteSet
+                           from ahistoria in Context.HistoriaClinicaSet
+                           where ahistoria.IdPaciente == arecord.Id
+                           select new
+                           {
+                               arecord,
+                               ahistoria
+                           }).ToList();
+                try
+                {
+                    //Verifica que existan los registros
+                    if (xdf != null)
+                    {
+                        foreach (var registro in xdf)
+                        {
+                            
+                            //crear instancia de objeto N_Paciente
+                            //N_Paciente pac = new N_Paciente();
+                            //pac.Id = registro.arecord.Id;
+                            //pac.DNI = registro.arecord.DNI;
+                            //pac.Nombre = registro.arecord.Nombre;
+                            //pac.Edad = registro.arecord.Edad;
+                            //pac.Sexo = registro.arecord.Sexo;
+                            //pac.Ubicacion = registro.arecord.Ubicacion;
+                            //pac.FechaRegistro = registro.arecord.FechaRegistro;
+
+                            ////añadir pac a la lista
+                            
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
     }
 
 
