@@ -32,7 +32,9 @@ namespace interfaceIntroduccionDatos
 
             if(metodo.ListarPacients(listaPacientes))
             {
+                MessageBox.Show("Entro en el listado");
                 grid_listado.ItemsSource = listaPacientes;
+                MessageBox.Show("Salgo del listado");
 
             }
             else
