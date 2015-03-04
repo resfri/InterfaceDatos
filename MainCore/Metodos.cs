@@ -295,11 +295,11 @@ namespace MainCore
         /// <param name="dni">Id del paciente</param>
         /// <param name="pac">Referencia a Objeto N_Paciente</param>
         /// <returns>Retorna Id si existe, si error retorna 0</returns>
-        public Boolean getPacienteId(String dni, N_Paciente pac)
+        public Boolean getPacienteDNI(String dni, N_Paciente pac)
         {
             using (Model1Container Context = new Model1Container())
             {
-                //Selecciona un registro de paciente por su Id
+                //Selecciona un registro de paciente por su DNI
                 var xdf = (from arecord in Context.PacienteSet
                            where arecord.DNI.CompareTo(pac.DNI)==0
                            select new

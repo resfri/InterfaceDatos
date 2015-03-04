@@ -73,3 +73,5 @@ C:\Users\Jaime\Source\Repos\InterfaceDatos2\interfaceIntroduccionDatos\bin\Debug
 C:\Users\Jaime\Source\Repos\InterfaceDatos2\interfaceIntroduccionDatos\bin\Debug\MainCore.pdb
 C:\Users\Jaime\Source\Repos\InterfaceDatos2\interfaceIntroduccionDatos\bin\Debug\EntityFramework.xml
 C:\Users\Jaime\Source\Repos\InterfaceDatos2\interfaceIntroduccionDatos\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Fabian\Source\Repos\InterfaceDatos2\interfaceIntroduccionDatos\obj\Debug\vetnala_listado.baml
+C:\Users\Fabian\Source\Repos\InterfaceDatos2\interfaceIntroduccionDatos\obj\Debug\vetnala_listado.g.cs

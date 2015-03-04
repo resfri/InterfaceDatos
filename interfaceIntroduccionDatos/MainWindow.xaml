@@ -69,6 +69,7 @@
         <RadioButton x:Name="rb_m" Content="Masculino" HorizontalAlignment="Left" Margin="108,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.607,0.667" GroupName="rb_sexo"/>
         <RadioButton x:Name="rb_f" Content="Femenino" HorizontalAlignment="Left" Margin="198,126,0,0" VerticalAlignment="Top" GroupName="rb_sexo"/>
         <Label x:Name="rutaImagen" Content="" HorizontalAlignment="Left" Margin="12,317,0,0" VerticalAlignment="Top" Width="337"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="24" Margin="268,336,0,0" VerticalAlignment="Top" Width="86" Click="Button_Click"/>
 
     </Grid>
 </Window>

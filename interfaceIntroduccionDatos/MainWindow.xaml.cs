@@ -335,7 +335,7 @@ namespace interfaceIntroduccionDatos
             N_Historia historia = new N_Historia();
             paciente.DNI = txtidentificacion.Text;
 
-            if( metodos.getPacienteId(paciente.DNI,paciente)){
+            if( metodos.getPacienteDNI(paciente.DNI,paciente)){
                 pintaPaciente(paciente);
                 if(metodos.getHistoriaId(paciente.Id, historia)){
 
@@ -377,6 +377,13 @@ namespace interfaceIntroduccionDatos
             }
 
             
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            vetnala_listado win = new vetnala_listado();
+            win.Show();
+            this.Close();
         }
 
 

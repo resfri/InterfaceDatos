@@ -7,7 +7,6 @@ C:\Users\Fabian\Source\Repos\InterfaceDatos2\MainCore\bin\Debug\EntityFramework.
 C:\Users\Fabian\Source\Repos\InterfaceDatos2\MainCore\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Fabian\Source\Repos\InterfaceDatos2\MainCore\bin\Debug\EntityFramework.xml
 C:\Users\Fabian\Source\Repos\InterfaceDatos2\MainCore\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\Fabian\Source\Repos\InterfaceDatos2\MainCore\obj\Debug\MainCore.csprojResolveAssemblyReference.cache
 C:\Users\Fabian\Source\Repos\InterfaceDatos2\MainCore\obj\Debug\MainCore.dll
 C:\Users\Fabian\Source\Repos\InterfaceDatos2\MainCore\obj\Debug\MainCore.pdb
 C:\Users\Jaime\Source\Repos\InterfaceDatos2\MainCore\bin\Debug\Database1.mdf
@@ -22,3 +21,4 @@ C:\Users\Jaime\Source\Repos\InterfaceDatos2\MainCore\bin\Debug\EntityFramework.S
 C:\Users\Jaime\Source\Repos\InterfaceDatos2\MainCore\obj\Debug\MainCore.csprojResolveAssemblyReference.cache
 C:\Users\Jaime\Source\Repos\InterfaceDatos2\MainCore\obj\Debug\MainCore.dll
 C:\Users\Jaime\Source\Repos\InterfaceDatos2\MainCore\obj\Debug\MainCore.pdb
+C:\Users\Fabian\Source\Repos\InterfaceDatos2\MainCore\obj\Debug\MainCore.csprojResolveAssemblyReference.cache
