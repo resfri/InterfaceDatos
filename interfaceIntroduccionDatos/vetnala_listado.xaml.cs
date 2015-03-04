@@ -23,24 +23,46 @@ namespace interfaceIntroduccionDatos
         public vetnala_listado()
         {
             InitializeComponent();
+            Loaded += MyWindow_Loaded;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            cargarDatos();
+        }
+
+        private void MyWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            cargarDatos();
+        }
+        private void cargarDatos()
         {
             Metodos metodo = new Metodos();
             List<N_Paciente> listaPacientes = new List<N_Paciente>();
 
             if(metodo.ListarPacients(listaPacientes))
             {
-                MessageBox.Show("Entro en el listado");
                 grid_listado.ItemsSource = listaPacientes;
-                MessageBox.Show("Salgo del listado");
 
             }
             else
             {
                 MessageBox.Show("Error al listar pacientes");
             }
+
+
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MainWindow win = new MainWindow();
+            win.Show();
+            this.Close();
+        }
+
+       
     }
+
+
 }

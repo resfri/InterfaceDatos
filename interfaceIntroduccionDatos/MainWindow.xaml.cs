@@ -383,7 +383,7 @@ namespace interfaceIntroduccionDatos
         {
             vetnala_listado win = new vetnala_listado();
             win.Show();
-            this.Close();
+            //this.Close();
         }
 
 
