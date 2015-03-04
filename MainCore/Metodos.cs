@@ -193,17 +193,18 @@ namespace MainCore
         }
 
         /// <summary>
-        /// Guarda los valores del odontograma en la base de datos
+        /// Guarda los valores de la historia medica en la base de datos
         /// </summary>
-        /// <param name="odont">Valores del odontograma</param>
-        /// <param name="Id">Id del paciente al que pertenece el odontograma</param>
+        /// <param name="hist">Valores de historia medica</param>
+        /// <param name="pac">paciente al que pertenece el odontograma</param>
         /// <returns></returns>
-        public Boolean NuevoOdontograma(String[] odont, Int32 Id)
+        public Boolean addHistoria(N_Historia hist, N_Paciente pac)
         {
             using (Model1Container Context = new Model1Container())
             {
+                
                 var xdf = (from arecord in Context.PacienteSet
-                           where arecord.Id == Id
+                           where arecord.DNI == pac.DNI
                            select new
                            {
                                arecord
@@ -216,9 +217,22 @@ namespace MainCore
                         HistoriaClinica Dbhistoria = new HistoriaClinica();
 
                         Dbhistoria.IdPaciente= xdf.arecord.Id;
-                        Dbhistoria.Odontograma= odont.ToString();
-                        Dbhistoria.NumeroDientesPerdidos = contarDientesPerdidos(odont); //no chks
-                        Dbhistoria.ParesAntagPerdidos = contarParesAntagPerdidos(odont);//
+                        Dbhistoria.Odontograma= hist.Odontograma;
+                        Dbhistoria.ACV = hist.ACV;
+                        Dbhistoria.EnfermedadCardioVascular = hist.EnfermedadCardioVascular;
+                        Dbhistoria.EnfermedadRenal = hist.EnfermedadRenal;
+                        Dbhistoria.EstadoSaludGeneral = hist.EstadoSaludGeneral;
+                        Dbhistoria.GradoDesnutricion = hist.GradoDesnutricion;
+                        Dbhistoria.GradoEdentulismo = hist.GradoEdentulismo;
+                        Dbhistoria.ICTUS = hist.ICTUS;
+                        Dbhistoria.Implantes = hist.Implantes;
+                        Dbhistoria.NumeroCariados = hist.NumeroCariados;
+                        Dbhistoria.NumeroDientesObturados = hist.NumeroDientesObturados;
+                        Dbhistoria.Ortodoncia = hist.Ortodoncia;
+                        Dbhistoria.ParalisisFacial = hist.ParalisisFacial;
+                        Dbhistoria.Protesis = hist.Protesis;
+                        Dbhistoria.NumeroDientesPerdidos = hist.NumeroDientesPerdidos; 
+                        Dbhistoria.ParesAntagPerdidos = hist.ParesAntagPerdidos;
                         Context.HistoriaClinicaSet.Add(Dbhistoria);
                         Context.SaveChanges();
                         return true;
@@ -235,10 +249,9 @@ namespace MainCore
                     return false;
                 }
             }
-
         }
 
-        private Int32 contarDientesPerdidos(String[] odont){
+        public Int32 contarDientesPerdidos(String[] odont){
             Int32 cuenta=32;
             
             foreach (String o in odont)
@@ -251,7 +264,7 @@ namespace MainCore
             return cuenta;
         }
 
-        private Int32 contarParesAntagPerdidos(String[] odont){
+        public Int32 contarParesAntagPerdidos(String[] odont){
             Int32 cuenta=10;
             Int32 n;
             for (n=2; n<=7; n++){
@@ -277,18 +290,18 @@ namespace MainCore
         }
 
         /// <summary>
-        /// Obtiene un registro de Paciente de la base de datos por DNI
+        /// Obtiene un registro de Paciente de la base de datos por dni
         /// </summary>
         /// <param name="dni">Id del paciente</param>
         /// <param name="pac">Referencia a Objeto N_Paciente</param>
-        /// <returns>Retorna True si existe, de otro modo retorna False</returns>
-        public Boolean getPacienteDNI(String dni, N_Paciente pac)
+        /// <returns>Retorna Id si existe, si error retorna 0</returns>
+        public Boolean getPacienteId(String dni, N_Paciente pac)
         {
             using (Model1Container Context = new Model1Container())
             {
                 //Selecciona un registro de paciente por su Id
                 var xdf = (from arecord in Context.PacienteSet
-                           where arecord.DNI.CompareTo(dni)==0
+                           where arecord.DNI.CompareTo(pac.DNI)==0
                            select new
                            {
                                arecord
@@ -306,7 +319,6 @@ namespace MainCore
                         pac.Sexo = xdf.arecord.Sexo;
                         pac.Ubicacion = xdf.arecord.Ubicacion;
                         pac.FechaRegistro = xdf.arecord.FechaRegistro;
-
                         return true;
                     }
                     else
@@ -322,6 +334,56 @@ namespace MainCore
             }
         }
 
+
+        public bool getHistoriaId(Int32 p, N_Historia historia)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.HistoriaClinicaSet
+                           where arecord.IdPaciente==p
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+
+                        historia.Odontograma= xdf.arecord.Odontograma;
+                        historia.ACV = xdf.arecord.ACV;
+                        historia.EnfermedadCardioVascular = xdf.arecord.EnfermedadCardioVascular;
+                        historia.EnfermedadRenal = xdf.arecord.EnfermedadRenal;
+                        historia.EstadoSaludGeneral = xdf.arecord.EstadoSaludGeneral;
+                        historia.GradoDesnutricion = xdf.arecord.GradoDesnutricion;
+                        historia.GradoEdentulismo = xdf.arecord.GradoEdentulismo;
+                        historia.ICTUS = xdf.arecord.ICTUS;
+                        historia.Id = xdf.arecord.Id;
+                        historia.IdPaciente = xdf.arecord.IdPaciente;
+                        historia.Implantes = xdf.arecord.Implantes;
+                        historia.NumeroCariados = xdf.arecord.NumeroCariados;
+                        historia.NumeroDientesObturados = xdf.arecord.NumeroDientesObturados;
+                        historia.NumeroDientesPerdidos = xdf.arecord.NumeroDientesPerdidos;
+                        historia.Ortodoncia = xdf.arecord.Ortodoncia;
+                        historia.ParalisisFacial = xdf.arecord.ParalisisFacial;
+                        historia.ParesAntagPerdidos = xdf.arecord.ParesAntagPerdidos;
+                        historia.Protesis = xdf.arecord.Protesis;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
     }
 
 
