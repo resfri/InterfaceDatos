@@ -253,9 +253,9 @@ namespace MainCore
         }
 
         /// <summary>
-        /// Guarda los valores de la historia medica en la base de datos
+        /// Guarda los datos de las imagenes
         /// </summary>
-        /// <param name="hist">Valores de historia medica</param>
+        /// <param name="iamgen">Valores de la imagen</param>
         /// <param name="pac">paciente al que pertenece el odontograma</param>
         /// <returns></returns>
         public Boolean addImagen(N_Imagenes imagen, N_Paciente pac)
@@ -301,6 +301,11 @@ namespace MainCore
             }
         }
 
+        /// <summary>
+        /// Dato un odontograma, devuelve el numero de dientes perdidos
+        /// </summary>
+        /// <param name="odont"></param>
+        /// <returns></returns>
         public Int32 contarDientesPerdidos(String[] odont){
             Int32 cuenta=0;
             
@@ -319,32 +324,39 @@ namespace MainCore
         /// <param name="odont"></param>
         /// <returns></returns>
         public Int32 contarParesAntagPerdidos(String[] odont){
-            Int32 cuenta=10;
+            Int32 cuenta=0;
             Int32 n;
-            for (n=3; n<=7; n++){
-                if (odont[n].CompareTo(odont[n + 8]) == 0)
-                { 
-                    if (odont[n].CompareTo("F") == 0)
-                    {
-                        cuenta--;
-                    }else if(odont[n+8].CompareTo("F")==0){
-                        cuenta--;
-                    }
+            for (n=3; n<8; n++)
+            {
+                //if (odont[n].CompareTo(odont[n + 24]) == 0)
+                //{ 
+                //    cuenta++;
+                //}else 
+                if(odont[n].CompareTo("F") == 0)
+                {
+                    cuenta++;
+                }
+                else if (odont[n + 24].CompareTo("F") == 0)
+                {
+                    cuenta++;
                 }
             }
-            for (n = 19; n <= 23; n++)
+            for (n = 11; n < 19; n++)
             {
-                if (odont[n].CompareTo(odont[n + 8]) == 0)
-                {
+                //if (odont[n].CompareTo(odont[n + 19-11]) == 0)
+                //{
                     if (odont[n].CompareTo("F") == 0)
                     {
-                        cuenta--;
+                        cuenta++;
                     }
                     else if (odont[n + 8].CompareTo("F") == 0)
-                    {
-                        cuenta--;
-                    }
-                }
+                        {
+                            cuenta++;
+                        }
+                        
+                    
+                        
+                
             }
             return cuenta;
         }
@@ -501,7 +513,54 @@ namespace MainCore
             }
         }
 
-        
+        /// <summary>
+        /// Crea listado con las historias almacenas en la base de datos
+        /// </summary>
+        /// <param name="listaHistorias"></param>
+        /// <returns></returns>
+        public bool ListarHistorias(List<N_Historia> listaHistorias)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.HistoriaClinicaSet
+                           select new
+                           {
+                               arecord
+                           }).ToList();
+                try
+                {
+                    //Verifica que existan los registros
+                    if (xdf != null)
+                    {
+                        foreach (var registro in xdf)
+                        {
+                            //crear instancia de objeto N_Paciente
+                            N_Historia his = new N_Historia();
+                            his.Id = registro.arecord.Id;
+                            his.IdPaciente = registro.arecord.IdPaciente;
+                            his.NumeroDientesPerdidos = registro.arecord.NumeroDientesPerdidos;
+                            his.Odontograma = registro.arecord.Odontograma;
+                            his.ParesAntagPerdidos = registro.arecord.ParesAntagPerdidos;
+                            
+
+                            //añadir pac a la lista
+                            listaHistorias.Add(his);
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
     }
 
 }

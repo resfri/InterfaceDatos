@@ -42,14 +42,31 @@ namespace interfaceIntroduccionDatos
             //Nueva instancia de Metoods
             Metodos metodos = new Metodos();
 
-            nuevopaciente.DNI = txtidentificacion.Text;
-            nuevopaciente.Nombre = txtnombre.Text;
-            if (txtedad.Text.CompareTo(String.Empty)==0)
+            if (txtidentificacion.Text.CompareTo(String.Empty) == 0)
             {
-                estado.Content = "Debe seleccionar el sexo del paciente";
+                estado.Content = "Error: Debe introducir el nombre del paciente";
                 return;
             }
-            else if (rb_f.IsChecked == true)
+            else
+            {
+                nuevopaciente.DNI = txtidentificacion.Text;
+            }
+            if (txtnombre.Text.CompareTo(String.Empty) == 0)
+            {
+                estado.Content = "Error: Debe introducir el nombre del paciente";
+                return;
+            }
+            else
+            {
+                nuevopaciente.Nombre = txtnombre.Text;
+            }
+            
+            if (txtedad.Text.CompareTo(String.Empty)==0)
+            {
+                estado.Content = "Error: Debe introducir la edad";
+                return;
+            }
+            else
             {
                 nuevopaciente.Edad = Int32.Parse(txtedad.Text);
             }
@@ -64,10 +81,18 @@ namespace interfaceIntroduccionDatos
             }
             else
             {
-                estado.Content = "Debe seleccionar el sexo del paciente";
+                estado.Content = "Error: Debe seleccionar el sexo del paciente";
                 return;
             }
-            nuevopaciente.Ubicacion = txtubicacion.Text;
+            if (txtubicacion.Text.CompareTo(String.Empty) == 0)
+            {
+                estado.Content = "Error: Debe introducir la hubicacion";
+                return;
+            }
+            else
+            {
+                nuevopaciente.Ubicacion = txtubicacion.Text;
+            }
             //inicializa el odontograma de la historia, inicializa ParesAntagPerdidos y DientesPerdidos
             getHistoria(historia); // cambiar a inicializar historia recibiendo el vector¿?¿?
 
@@ -100,6 +125,7 @@ namespace interfaceIntroduccionDatos
         private void getHistoria(N_Historia historia)
         {
             String[] odontograma = new String[32];
+            String res = "";
             N_Paciente paciente = new N_Paciente();
             Metodos metodos = new Metodos();
                         
@@ -239,7 +265,11 @@ namespace interfaceIntroduccionDatos
                     }
                     historia.NumeroDientesPerdidos = metodos.contarDientesPerdidos(odontograma);
                     historia.ParesAntagPerdidos = metodos.contarParesAntagPerdidos(odontograma);
-                    historia.Odontograma = odontograma.ToString();
+                    for (Int32 i=0; i<32; i++){
+                        res = res + odontograma[i];
+                    }
+                    Console.Write(res);
+                    historia.Odontograma = res;
             
         }
 
@@ -281,6 +311,11 @@ namespace interfaceIntroduccionDatos
 
         }
 
+
+        /// <summary>
+        /// Genera fichero de texto plano con los datos de los pacientes
+        /// </summary>
+        /// <param name="paciente"></param>
         private void grabarFicheroPaciente(Paciente paciente)
         {
             //try
@@ -309,6 +344,12 @@ namespace interfaceIntroduccionDatos
             //}
 
         }
+
+        /// <summary>
+        /// Desde fichero de texto plano incorpora los datos de los pacientes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="a"></param>
         private void leerFicheroPaciente(object sender, RoutedEventArgs a)
         {
             //try
@@ -336,6 +377,11 @@ namespace interfaceIntroduccionDatos
             //}
         }
 
+        /// <summary>
+        /// Ejecuta la busqueda del paciente
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buscarPaciente(object sender, RoutedEventArgs e)
         {
             
@@ -354,6 +400,10 @@ namespace interfaceIntroduccionDatos
             }
         }
 
+        /// <summary>
+        /// Pinta en el inteface los valores de la histira clinica
+        /// </summary>
+        /// <param name="historia"></param>
         private void pintaHistoria(N_Historia historia)
         {
             String odontograma = historia.Odontograma;
@@ -362,6 +412,10 @@ namespace interfaceIntroduccionDatos
             pintaOdontograma(odontograma);            
         }
 
+        /// <summary>
+        /// Pinta en el interface los valores del odontograma
+        /// </summary>
+        /// <param name="odont"></param>
         private void pintaOdontograma(String odont)
         {
             Int32 longitud = odont.Length;
@@ -516,6 +570,11 @@ namespace interfaceIntroduccionDatos
             
 
         }
+
+        /// <summary>
+        /// Pinta en el interface los datos del paciente
+        /// </summary>
+        /// <param name="paciente"></param>
         private void pintaPaciente(N_Paciente paciente)
         {
             txtedad.Text = paciente.Edad.ToString();
@@ -541,6 +600,11 @@ namespace interfaceIntroduccionDatos
             
         }
 
+        /// <summary>
+        /// Abre ventana donde visualizar los datos almacenados en la base de datos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void botonGeneraListado(object sender, RoutedEventArgs e)
         {
             vetnala_listado win = new vetnala_listado();

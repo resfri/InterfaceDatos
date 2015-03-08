@@ -66,6 +66,9 @@
     <Compile Include="vetnala_listado.xaml.cs">
       <DependentUpon>vetnala_listado.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowsClipboard.xaml.cs">
       <DependentUpon>WindowsClipboard.xaml</DependentUpon>
     </Compile>
@@ -86,6 +89,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="vetnala_listado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
