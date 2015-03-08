@@ -60,8 +60,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="VentanaScan.xaml.cs">
+      <DependentUpon>VentanaScan.xaml</DependentUpon>
+    </Compile>
     <Compile Include="vetnala_listado.xaml.cs">
       <DependentUpon>vetnala_listado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsClipboard.xaml.cs">
+      <DependentUpon>WindowsClipboard.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -75,7 +81,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="VentanaScan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="vetnala_listado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsClipboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -119,6 +133,25 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\odontograma.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="WIA">
+      <Guid>{94A0E92D-43C0-494E-AC29-FD45948A5221}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="muestras\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\empty.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

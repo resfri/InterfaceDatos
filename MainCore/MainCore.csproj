@@ -63,8 +63,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="N_Imagenes.cs" />
+    <Compile Include="Scanner.cs" />
+    <Compile Include="N_Informe.cs" />
     <Compile Include="N_Historia.cs" />
-    <Compile Include="Class2.cs" />
     <Compile Include="HistoriaClinica.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -90,6 +92,7 @@
     <Compile Include="MPAT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="N_Odontograma.cs" />
     <Compile Include="N_Paciente.cs" />
     <Compile Include="Paciente.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -146,6 +149,20 @@
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
     <Content Include="Model1.edmx.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="WIA">
+      <Guid>{94A0E92D-43C0-494E-AC29-FD45948A5221}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

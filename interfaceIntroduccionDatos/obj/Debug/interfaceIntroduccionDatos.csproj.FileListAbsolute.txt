@@ -98,3 +98,9 @@ C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug
 C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.g.resources
 C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.Properties.Resources.resources
 C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.csproj.GenerateResource.Cache
+C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug\Interop.WIA.dll
+C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.csproj.ResolveComReference.cache
+C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug\VentanaScan.baml
+C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug\VentanaScan.g.cs
+C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug\WindowsClipboard.baml
+C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug\WindowsClipboard.g.cs

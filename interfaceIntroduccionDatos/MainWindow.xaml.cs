@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MainCore;
+using System.Runtime.InteropServices;
 
 namespace interfaceIntroduccionDatos
 {
@@ -43,7 +44,16 @@ namespace interfaceIntroduccionDatos
 
             nuevopaciente.DNI = txtidentificacion.Text;
             nuevopaciente.Nombre = txtnombre.Text;
-            nuevopaciente.Edad = Int32.Parse(txtedad.Text);
+            if (txtedad.Text.CompareTo(String.Empty)==0)
+            {
+                estado.Content = "Debe seleccionar el sexo del paciente";
+                return;
+            }
+            else if (rb_f.IsChecked == true)
+            {
+                nuevopaciente.Edad = Int32.Parse(txtedad.Text);
+            }
+            
             if(rb_m.IsChecked == true)
             {
                 nuevopaciente.Sexo = 1;
@@ -54,10 +64,10 @@ namespace interfaceIntroduccionDatos
             }
             else
             {
-                MessageBox.Show("Debe seleccionar el sexo del paciente");
+                estado.Content = "Debe seleccionar el sexo del paciente";
                 return;
             }
-            nuevopaciente.Ubicacion = txtidentificacion.Text;
+            nuevopaciente.Ubicacion = txtubicacion.Text;
             //inicializa el odontograma de la historia, inicializa ParesAntagPerdidos y DientesPerdidos
             getHistoria(historia); // cambiar a inicializar historia recibiendo el vector¿?¿?
 
@@ -65,21 +75,21 @@ namespace interfaceIntroduccionDatos
             if(metodos.NuevoPaciente(nuevopaciente))
             {
                                       
-                    MessageBox.Show("Paciente registrado con éxito");
+                   
                     
                     if (metodos.addHistoria(historia, nuevopaciente)) {
-                        MessageBox.Show("Historia registrada con éxito");
+                         estado.Content = "Paciente registrado con éxito. " + "Historia registrada con éxito";
                     }
                     else
                     {
-                        MessageBox.Show("Error al registrar historia del paciente"+ nuevopaciente.DNI);
+                        estado.Content = "Error al registrar historia del paciente" + nuevopaciente.DNI;
                     }
                     resetview();
                 
             }
             else
             {
-                MessageBox.Show("Error al registrar paciente");
+                estado.Content = "Error al registrar paciente";
             }
 
         }
@@ -259,6 +269,16 @@ namespace interfaceIntroduccionDatos
             D41.IsChecked = true; D42.IsChecked = true; D43.IsChecked = true; D44.IsChecked = true;
             D45.IsChecked = true; D46.IsChecked = true; D47.IsChecked = true; D48.IsChecked = true;
 
+            byte[] imageBytes = LoadImageData("./Images/empty.jpg");
+            ImageSource imageSource = CreateImage(imageBytes, 120, 0);
+            imagen.Source = imageSource ;
+
+            rutaImagen.Content = "";
+
+            labelNDP.Content = "";
+            labelNPP.Content = "";
+
+
         }
 
         private void grabarFicheroPaciente(Paciente paciente)
@@ -318,18 +338,7 @@ namespace interfaceIntroduccionDatos
 
         private void buscarPaciente(object sender, RoutedEventArgs e)
         {
-            //String idPaciente = txtidentificacion.Text;
-            //Paciente paciente = new Paciente();
-            //paciente = buscaPaciente(idPaciente);
-            //Console.Write(paciente.toString());
-            //txtidentificacion.Text = paciente.getIdentificacion();
-            //txtnombre.Text = paciente.getNombre();
-            //txtedad.Text = paciente.getEdad();
-            //txtsexo.Text = paciente.getSexo();
-            //txtubicacion.Text = paciente.getUbicacion();
-            //txtfechaRegistro.Text = paciente.getFechaRegistro();
-            //bGrabarPac.IsEnabled = false;
-            //MessageBox.Show("OK", "Buscar Paciente");
+            
             Metodos metodos = new Metodos();
             N_Paciente paciente = new N_Paciente();
             N_Historia historia = new N_Historia();
@@ -338,23 +347,175 @@ namespace interfaceIntroduccionDatos
             if( metodos.getPacienteDNI(paciente.DNI,paciente)){
                 pintaPaciente(paciente);
                 if(metodos.getHistoriaId(paciente.Id, historia)){
-
+                    pintaHistoria(historia);
                 }
-                pintaHistoria(historia);
             }else{
-                MessageBox.Show("Error al registrar paciente");
+                estado.Content="Error al registrar paciente";
             }
-
-            
         }
 
         private void pintaHistoria(N_Historia historia)
         {
             String odontograma = historia.Odontograma;
-
-            
+            labelNDP.Content = "DP: "+historia.NumeroDientesPerdidos;
+            labelNPP.Content = "PA: "+ historia.ParesAntagPerdidos;
+            pintaOdontograma(odontograma);            
         }
 
+        private void pintaOdontograma(String odont)
+        {
+            Int32 longitud = odont.Length;
+            longitud = 32;
+            String[] odontograma = new String[32];
+
+            Console.Write("longitud: " + longitud+"\n");
+            Console.Write("odont: " + odont + "\n");
+            Console.Write("odontograma: " + odontograma + "\n");
+            
+            Char[] temp = odont.ToCharArray();
+
+            
+            for (Int32 i = 0; i < longitud; i++)
+            {
+                odontograma[i] = temp[i].ToString();
+                Console.Write(temp[i].ToString());
+            }
+            if (odontograma == null) { } else { 
+            if (odontograma[0].CompareTo("F")==0)
+            {
+                this.D11.IsChecked = false;
+            }
+            if (odontograma[1].CompareTo("F") == 0)
+            {
+                this.D12.IsChecked = false;
+            }
+            if (odontograma[2].CompareTo("F") == 0)
+            {
+                this.D13.IsChecked = false;
+            }
+            if (odontograma[3].CompareTo("F") == 0)
+            {
+                this.D14.IsChecked = false;
+            }
+            if (odontograma[4].CompareTo("F") == 0)
+            {
+                this.D15.IsChecked = false;
+            }
+            if (odontograma[5].CompareTo("F") == 0)
+            {
+                this.D16.IsChecked = false;
+            }
+            if (odontograma[6].CompareTo("F") == 0)
+            {
+                this.D17.IsChecked = false;
+            }
+            if (odontograma[7].CompareTo("F") == 0)
+            {
+                this.D18.IsChecked = false;
+            }
+            //
+            if (odontograma[8].CompareTo("F") == 0)
+            {
+                this.D21.IsChecked = false;
+            }
+            if (odontograma[9].CompareTo("F") == 0)
+            {
+                this.D22.IsChecked = false;
+            }
+            if (odontograma[10].CompareTo("F") == 0)
+            {
+                this.D23.IsChecked = false;
+            }
+            if (odontograma[11].CompareTo("F") == 0)
+            {
+                this.D24.IsChecked = false;
+            }
+            if (odontograma[12].CompareTo("F") == 0)
+            {
+                this.D25.IsChecked = false;
+            }
+            if (odontograma[13].CompareTo("F") == 0)
+            {
+                this.D26.IsChecked = false;
+            }
+            if (odontograma[14].CompareTo("F") == 0)
+            {
+                this.D27.IsChecked = false;
+            }
+            
+            if (odontograma[15].CompareTo("F") == 0)
+            {
+                this.D28.IsChecked = false;
+            }
+            //
+            if (odontograma[16].CompareTo("F") == 0)
+            {
+                this.D31.IsChecked = false;
+            }
+            if (odontograma[17].CompareTo("F") == 0)
+            {
+                this.D32.IsChecked = false;
+            }
+            if (odontograma[18].CompareTo("F") == 0)
+            {
+                this.D33.IsChecked = false;
+            }
+            if (odontograma[19].CompareTo("F") == 0)
+            {
+                this.D34.IsChecked = false;
+            }
+            if (odontograma[20].CompareTo("F") == 0)
+            {
+                this.D35.IsChecked = false;
+            }
+            if (odontograma[21].CompareTo("F") == 0)
+            {
+                this.D36.IsChecked = false;
+            }
+            if (odontograma[22].CompareTo("F") == 0)
+            {
+                this.D37.IsChecked = false;
+            }
+            if (odontograma[23].CompareTo("F") == 0)
+            {
+                this.D38.IsChecked = false;
+            }
+            if (odontograma[24].CompareTo("F") == 0)
+            {
+                this.D41.IsChecked = false;
+            }
+            if (odontograma[25].CompareTo("F") == 0)
+            {
+                this.D42.IsChecked = false;
+            }
+            if (odontograma[26].CompareTo("F") == 0)
+            {
+                this.D43.IsChecked = false;
+            }
+            if (odontograma[27].CompareTo("F") == 0)
+            {
+                this.D44.IsChecked = false;
+            }
+            if (odontograma[28].CompareTo("F") == 0)
+            {
+                this.D45.IsChecked = false;
+            }
+            if (odontograma[29].CompareTo("F") == 0)
+            {
+                this.D46.IsChecked = false;
+            }
+            if (odontograma[30].CompareTo("F") == 0)
+            {
+                this.D47.IsChecked = false;
+            }
+            if (odontograma[31].CompareTo("F") == 0)
+            {
+                this.D48.IsChecked = false;
+            }
+            }
+            
+
+        }
         private void pintaPaciente(N_Paciente paciente)
         {
             txtedad.Text = paciente.Edad.ToString();
@@ -376,16 +537,213 @@ namespace interfaceIntroduccionDatos
                 rb_m.IsChecked = false;
             }
 
+
             
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void botonGeneraListado(object sender, RoutedEventArgs e)
         {
             vetnala_listado win = new vetnala_listado();
             win.Show();
             //this.Close();
         }
 
+        private void botonRecuperaImagenPortapapeles(object sender, RoutedEventArgs e)
+        {
+            //WindowsClipboard win = new WindowsClipboard();
+            //win.Show();
+            //this.Close();
+            byte[] imageBytes = LoadImageData("./Images/empty.jpg");
+
+            ImageSource imageSource = CreateImage(imageBytes, 120, 0);
+            if (Clipboard.ContainsImage())
+            {
+                //Console.Write("Paso por getImage");
+                imageSource = ImageFromClipboardDib();
+
+                imagen.Source = imageSource;
+            }
+            else
+            {
+                estado.Content= "Portapapales vacio";
+            }
+            if (txtidentificacion.Text.CompareTo("") == 0)
+            {
+                estado.Content = "Debes introducir los datos del paciente";
+                return;
+            }
+            else
+            {
+                SaveImageData(imageBytes, "./muestras/"+this.txtidentificacion.Text+".jpg");
+                rutaImagen.Content = "/muestras/"+this.txtidentificacion.Text + ".jpg";
+            }
+            
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 2)]
+        private struct BITMAPFILEHEADER
+        {
+            public static readonly short BM = 0x4d42; // BM
+
+            public short bfType;
+            public int bfSize;
+            public short bfReserved1;
+            public short bfReserved2;
+            public int bfOffBits;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct BITMAPINFOHEADER
+        {
+            public int biSize;
+            public int biWidth;
+            public int biHeight;
+            public short biPlanes;
+            public short biBitCount;
+            public int biCompression;
+            public int biSizeImage;
+            public int biXPelsPerMeter;
+            public int biYPelsPerMeter;
+            public int biClrUsed;
+            public int biClrImportant;
+        }
+
+        private static byte[] LoadImageData(string filePath)
+        {
+
+            FileStream fs = new FileStream(filePath, FileMode.Open,
+
+                FileAccess.Read);
+
+            BinaryReader br = new BinaryReader(fs);
+
+            byte[] imageBytes = br.ReadBytes((int)fs.Length);
+
+            br.Close();
+
+            fs.Close();
+
+            return imageBytes;
+
+        }
+
+
+        public static class BinaryStructConverter
+        {
+            public static T FromByteArray<T>(byte[] bytes) where T : struct
+            {
+                IntPtr ptr = IntPtr.Zero;
+                try
+                {
+                    int size = Marshal.SizeOf(typeof(T));
+                    ptr = Marshal.AllocHGlobal(size);
+                    Marshal.Copy(bytes, 0, ptr, size);
+                    object obj = Marshal.PtrToStructure(ptr, typeof(T));
+                    return (T)obj;
+                }
+                finally
+                {
+                    if (ptr != IntPtr.Zero)
+                        Marshal.FreeHGlobal(ptr);
+                }
+            }
+
+            public static byte[] ToByteArray<T>(T obj) where T : struct
+            {
+                IntPtr ptr = IntPtr.Zero;
+                try
+                {
+                    int size = Marshal.SizeOf(typeof(T));
+                    ptr = Marshal.AllocHGlobal(size);
+                    Marshal.StructureToPtr(obj, ptr, true);
+                    byte[] bytes = new byte[size];
+                    Marshal.Copy(ptr, bytes, 0, size);
+                    return bytes;
+                }
+                finally
+                {
+                    if (ptr != IntPtr.Zero)
+                        Marshal.FreeHGlobal(ptr);
+                }
+            }
+        }
+        private ImageSource ImageFromClipboardDib()
+        {
+            MemoryStream ms = Clipboard.GetData("DeviceIndependentBitmap") as MemoryStream;
+            if (ms != null)
+            {
+                byte[] dibBuffer = new byte[ms.Length];
+                ms.Read(dibBuffer, 0, dibBuffer.Length);
+
+                BITMAPINFOHEADER infoHeader =
+                    BinaryStructConverter.FromByteArray<BITMAPINFOHEADER>(dibBuffer);
+
+                int fileHeaderSize = Marshal.SizeOf(typeof(BITMAPFILEHEADER));
+                int infoHeaderSize = infoHeader.biSize;
+                int fileSize = fileHeaderSize + infoHeader.biSize + infoHeader.biSizeImage;
+
+                BITMAPFILEHEADER fileHeader = new BITMAPFILEHEADER();
+                fileHeader.bfType = BITMAPFILEHEADER.BM;
+                fileHeader.bfSize = fileSize;
+                fileHeader.bfReserved1 = 0;
+                fileHeader.bfReserved2 = 0;
+                fileHeader.bfOffBits = fileHeaderSize + infoHeaderSize + infoHeader.biClrUsed * 4;
+
+                byte[] fileHeaderBytes =
+                    BinaryStructConverter.ToByteArray<BITMAPFILEHEADER>(fileHeader);
+
+                MemoryStream msBitmap = new MemoryStream();
+                msBitmap.Write(fileHeaderBytes, 0, fileHeaderSize);
+                msBitmap.Write(dibBuffer, 0, dibBuffer.Length);
+                msBitmap.Seek(0, SeekOrigin.Begin);
+
+                return BitmapFrame.Create(msBitmap);
+            }
+            return null;
+        }
+
+        private static void SaveImageData(byte[] imageData, string filePath)
+        {
+
+            FileStream fs = new FileStream(filePath, FileMode.Create,
+
+                FileAccess.Write);
+
+            BinaryWriter bw = new BinaryWriter(fs);
+
+            bw.Write(imageData);
+
+            bw.Close();
+
+            fs.Close();
+
+        }
+        private static ImageSource CreateImage(byte[] imageData,
+
+               int decodePixelWidth, int decodePixelHeight)
+        {
+
+            if (imageData == null) return null;
+            BitmapImage result = new BitmapImage();
+            result.BeginInit();
+
+            if (decodePixelWidth > 0)
+            {
+                result.DecodePixelWidth = decodePixelWidth;
+            }
+
+            if (decodePixelHeight > 0)
+            {
+                result.DecodePixelHeight = decodePixelHeight;
+            }
+
+            result.StreamSource = new MemoryStream(imageData);
+            result.CreateOptions = BitmapCreateOptions.None;
+            result.CacheOption = BitmapCacheOption.Default;
+            result.EndInit();
+            return result;
+
+        }
 
     }
 }

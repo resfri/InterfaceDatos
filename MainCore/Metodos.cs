@@ -4,7 +4,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Drawing;
+using WIA;
 namespace MainCore
 {
     [DataContract]
@@ -251,27 +252,82 @@ namespace MainCore
             }
         }
 
+        /// <summary>
+        /// Guarda los valores de la historia medica en la base de datos
+        /// </summary>
+        /// <param name="hist">Valores de historia medica</param>
+        /// <param name="pac">paciente al que pertenece el odontograma</param>
+        /// <returns></returns>
+        public Boolean addImagen(N_Imagenes imagen, N_Paciente pac)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+
+                var xdf = (from arecord in Context.PacienteSet
+                           where arecord.DNI == pac.DNI
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+
+                try
+                {
+                    if (xdf.arecord != null)
+                    {
+                        Imagenes Dbimagenes = new Imagenes();
+
+                        Dbimagenes.IdPaciente = xdf.arecord.Id;
+                        Dbimagenes.IdMPAT = imagen.IdMPAT;
+                        Dbimagenes.NumeroCiclos = imagen.NumeroCiclos;
+                        Dbimagenes.NumeroToma = imagen.NumeroToma;
+                        Dbimagenes.Cara = imagen.Cara;
+
+
+                        Context.ImagenesSet.Add(Dbimagenes);
+                        Context.SaveChanges();
+                        return true;
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
         public Int32 contarDientesPerdidos(String[] odont){
-            Int32 cuenta=32;
+            Int32 cuenta=0;
             
             foreach (String o in odont)
             {
                 if (o =="F"){
-                    cuenta--;
+                    cuenta++;
                 }
             }
             
             return cuenta;
         }
-
+        /// <summary>
+        /// Realiza el cálculo de contar los pares Antagonicos Perdidos
+        /// </summary>
+        /// <param name="odont"></param>
+        /// <returns></returns>
         public Int32 contarParesAntagPerdidos(String[] odont){
             Int32 cuenta=10;
             Int32 n;
-            for (n=2; n<=7; n++){
+            for (n=3; n<=7; n++){
                 if (odont[n].CompareTo(odont[n + 8]) == 0)
                 { 
-                    if (odont[n].CompareTo("T") == 0)
+                    if (odont[n].CompareTo("F") == 0)
                     {
+                        cuenta--;
+                    }else if(odont[n+8].CompareTo("F")==0){
                         cuenta--;
                     }
                 }
@@ -280,7 +336,11 @@ namespace MainCore
             {
                 if (odont[n].CompareTo(odont[n + 8]) == 0)
                 {
-                    if (odont[n].CompareTo("T") == 0)
+                    if (odont[n].CompareTo("F") == 0)
+                    {
+                        cuenta--;
+                    }
+                    else if (odont[n + 8].CompareTo("F") == 0)
                     {
                         cuenta--;
                     }
@@ -290,7 +350,7 @@ namespace MainCore
         }
 
         /// <summary>
-        /// Obtiene un registro de Paciente de la base de datos por dni
+        /// Obtiene un registro de Paciente de la base de datos por DNI
         /// </summary>
         /// <param name="dni">Id del paciente</param>
         /// <param name="pac">Referencia a Objeto N_Paciente</param>
@@ -311,7 +371,7 @@ namespace MainCore
                     //Comprueba si el resultado es vacio
                     if (xdf.arecord != null)
                     {
-
+                        //volcamos los datos de la consulta a la variable pac
                         pac.Id = xdf.arecord.Id;
                         pac.DNI = xdf.arecord.DNI;
                         pac.Nombre = xdf.arecord.Nombre;
@@ -334,7 +394,12 @@ namespace MainCore
             }
         }
 
-
+        /// <summary>
+        /// Dado un identificado ID de paciente, devolvemos la historia clinica del paciente
+        /// </summary>
+        /// <param name="p">ID del paciente</param>
+        /// <param name="historia">retorno de la historia clinica del paciente</param>
+        /// <returns>Devuelve true si se encuentra el paciente y la historia, devuelve false en cualquier otro caso</returns>
         public bool getHistoriaId(Int32 p, N_Historia historia)
         {
             using (Model1Container Context = new Model1Container())
@@ -351,7 +416,7 @@ namespace MainCore
                     //Comprueba si el resultado es vacio
                     if (xdf.arecord != null)
                     {
-
+                        //volcamos los datos de la consulta a la variable historia
                         historia.Odontograma= xdf.arecord.Odontograma;
                         historia.ACV = xdf.arecord.ACV;
                         historia.EnfermedadCardioVascular = xdf.arecord.EnfermedadCardioVascular;
@@ -384,13 +449,13 @@ namespace MainCore
                 }
             }
         }
-
-        ////////////////////////////////////
-
-        //HAY QUE CREAR LA CLASE NUEVA PARA PODER GUARDAR LOS RESULTADOS DEL JOIN
-        ///
-
-        public bool listarPacientesHistorias <T>(List<T> listado)
+     
+        /// <summary>
+        /// Crea un listado con los informes almacenados en la base de datos
+        /// </summary>
+        /// <param name="listado"></param>
+        /// <returns>Devuelve true si se ha encontrado informe, devuelve false si no se ha encontrdo informe</returns>
+        public bool listarInformes(List<N_Informe> listado)
         {
             using (Model1Container Context = new Model1Container())
             {
@@ -411,18 +476,14 @@ namespace MainCore
                     {
                         foreach (var registro in xdf)
                         {
+                            // Añado el elemento Informe a la lista
+                            N_Historia historia = new N_Historia();
+                            historia.Id = registro.ahistoria.Id;
                             
-                            //crear instancia de objeto N_Paciente
-                            //N_Paciente pac = new N_Paciente();
-                            //pac.Id = registro.arecord.Id;
-                            //pac.DNI = registro.arecord.DNI;
-                            //pac.Nombre = registro.arecord.Nombre;
-                            //pac.Edad = registro.arecord.Edad;
-                            //pac.Sexo = registro.arecord.Sexo;
-                            //pac.Ubicacion = registro.arecord.Ubicacion;
-                            //pac.FechaRegistro = registro.arecord.FechaRegistro;
-
-                            ////añadir pac a la lista
+                            N_Paciente paciente = new N_Paciente();
+                            paciente.Id = registro.arecord.Id;
+                            N_Informe informe = new N_Informe(historia, paciente);
+                            listado.Add(informe);
                             
                         }
                         return true;
@@ -439,7 +500,8 @@ namespace MainCore
                 }
             }
         }
-    }
 
+        
+    }
 
 }
