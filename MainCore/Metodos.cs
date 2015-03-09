@@ -518,7 +518,14 @@ namespace MainCore
                            {
                                arecord.DNI,
                                arecord.Id,
-                               ahistoria
+                               arecord.Edad,
+                               arecord.Nombre,
+                               arecord.Sexo,
+                               arecord.Ubicacion,
+                               ahistoria.NumeroDientesPerdidos,
+                               ahistoria.ParesAntagPerdidos,
+                               ahistoria.Odontograma
+
                            }).ToList();
                 try
                 {
@@ -527,16 +534,17 @@ namespace MainCore
                     {
                         foreach (var registro in xdf)
                         {
-                            // Añado el elemento Informe a la lista
-                            N_Historia historia = new N_Historia();
-                            historia.Id = registro.ahistoria.Id;
-                            
-                            N_Paciente paciente = new N_Paciente();
-                            paciente.Id = registro.Id;
-                            paciente.DNI = registro.DNI;
 
-                            N_Informe informe = new N_Informe(historia, paciente);
-                            listado.Add(informe);
+                            N_Informe Dbinforme = new N_Informe();
+                            Dbinforme.NumeroDientesPerdidos = registro.NumeroDientesPerdidos;
+                            Dbinforme.Nombre = registro.Nombre;
+                            Dbinforme.Odontograma = registro.Odontograma;
+                            Dbinforme.ParesAntagPerdidos = registro.ParesAntagPerdidos;
+                            Dbinforme.Sexo = registro.Sexo;
+                            Dbinforme.Ubicacion = registro.Ubicacion;
+                            Dbinforme.DNI = registro.DNI;
+                            Dbinforme.Edad = registro.Edad;
+                            listado.Add(Dbinforme);
                             
                         }
                         return true;

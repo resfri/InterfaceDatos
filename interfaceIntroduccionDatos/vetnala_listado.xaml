@@ -11,10 +11,13 @@
                 <DataGridTextColumn Binding="{Binding Path=Edad}" Header="Edad"/>
                 <DataGridTextColumn Binding="{Binding Path=Sexo}" Header="Sexo"/>
                 <DataGridTextColumn Binding="{Binding Path=Ubicacion}" Header="Ubicación"/>
-                <DataGridTextColumn Binding="{Binding Path=FechaRegistro}" Header="Fecha de registro"/>
+                <DataGridTextColumn Binding="{Binding Path=NumeroDientesPerdidos}" Header="NumeroDientesPerdidos"/>
+                <DataGridTextColumn Binding="{Binding Path=Odontograma}" Header="Odontograma"/>
+                <DataGridTextColumn Binding="{Binding Path=ParesAntagPerdidos}" Header="ParesAntagPerdidos"/>
+                
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Recargar" HorizontalAlignment="Left" Margin="22,15,0,0" VerticalAlignment="Top" Width="118" Height="39" FontSize="18" Click="Button_Click"/>
-        <Button Content="Historial" HorizontalAlignment="Left" Margin="798,15,0,0" VerticalAlignment="Top" Width="96" Height="34" Click="Historias" FontSize="18"/>
+        <Button Content="Historial" HorizontalAlignment="Left" Margin="798,15,0,0" VerticalAlignment="Top" Width="96" Height="34" Click="Historias" FontSize="18" IsEnabled="False"/>
     </Grid>
 </Window>

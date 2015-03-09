@@ -12,16 +12,39 @@ namespace MainCore
     // La clase Informe recoge todos los datos de un paciente y su historia clinica
     public class N_Informe
     {
-        [DataMember]
-        public N_Historia historia { get; set; }
-        [DataMember]
-        public N_Paciente paciente {get; set;}
+        
 
-        public N_Informe(N_Historia hist, N_Paciente pac)
+        [DataMember]
+        public Int32 Id { get; set; }
+        [DataMember]
+        public String DNI {get; set;}
+        [DataMember]
+        public Int32 Edad  {get; set;}
+        [DataMember]
+        public String Nombre  {get; set;}
+        [DataMember]
+        public Int32 Sexo  {get; set;}
+        [DataMember]
+        public String Ubicacion  {get; set;}
+        [DataMember]
+        public Int32 NumeroDientesPerdidos  {get; set;}
+        [DataMember]
+        public Int32 ParesAntagPerdidos  {get; set;}
+        [DataMember]
+        public String Odontograma { get; set; }
+
+        public N_Informe()
         {
-            
-            hist = new N_Historia();
-            pac = new N_Paciente();
+            this.DNI = String.Empty;
+            this.Edad = 0;
+            this.Nombre = String.Empty;
+            this.Sexo = 0;
+            this.Ubicacion = String.Empty;
+            this.NumeroDientesPerdidos = 0;
+            this.ParesAntagPerdidos = 0;
+            this.Odontograma = String.Empty;
         }
+
+        
     }
 }
