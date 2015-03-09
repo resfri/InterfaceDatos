@@ -20,6 +20,7 @@ namespace MainCore
         public int Cara { get; set; }
         public int IdPaciente { get; set; }
         public int IdMPAT { get; set; }
+        public string RutaImagen { get; set; }
     
         public virtual Paciente Paciente { get; set; }
         public virtual MPAT MPAT { get; set; }

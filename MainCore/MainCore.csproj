@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="N_Imagenes.cs" />
+    <Compile Include="N_Mpat.cs" />
     <Compile Include="Scanner.cs" />
     <Compile Include="N_Informe.cs" />
     <Compile Include="N_Historia.cs" />

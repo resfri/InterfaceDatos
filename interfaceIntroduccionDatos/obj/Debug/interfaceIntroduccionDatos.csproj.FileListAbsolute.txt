@@ -106,3 +106,5 @@ C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug
 C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug\WindowsClipboard.g.cs
 C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug\Window1.baml
 C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug\Window1.g.cs
+C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug\Window2.baml
+C:\Users\Jaime\Source\Repos\InterfaceDatos3\interfaceIntroduccionDatos\obj\Debug\Window2.g.cs

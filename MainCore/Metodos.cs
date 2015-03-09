@@ -255,10 +255,10 @@ namespace MainCore
         /// <summary>
         /// Guarda los datos de las imagenes
         /// </summary>
-        /// <param name="iamgen">Valores de la imagen</param>
+        /// <param name="imagen">Valores de la imagen</param>
         /// <param name="pac">paciente al que pertenece el odontograma</param>
         /// <returns></returns>
-        public Boolean addImagen(N_Imagenes imagen, N_Paciente pac)
+        public Boolean addImagen(N_Imagenes imagen, N_Paciente pac, N_Mpat mpat)
         {
             using (Model1Container Context = new Model1Container())
             {
@@ -277,11 +277,14 @@ namespace MainCore
                         Imagenes Dbimagenes = new Imagenes();
 
                         Dbimagenes.IdPaciente = xdf.arecord.Id;
-                        Dbimagenes.IdMPAT = imagen.IdMPAT;
+                        Dbimagenes.IdMPAT = mpat.Id;
                         Dbimagenes.NumeroCiclos = imagen.NumeroCiclos;
                         Dbimagenes.NumeroToma = imagen.NumeroToma;
                         Dbimagenes.Cara = imagen.Cara;
+                        Dbimagenes.RutaImagen = imagen.Ruta;
+                        Dbimagenes.Paciente = xdf.arecord;
 
+                        
 
                         Context.ImagenesSet.Add(Dbimagenes);
                         Context.SaveChanges();
@@ -292,6 +295,39 @@ namespace MainCore
                     {
                         return false;
                     }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Alta de MPAT
+        /// </summary>
+        /// <param name="mpat">Elemento tipo Mpat que tenemos que dar de alta</param>
+        /// <returns></returns>
+        public Boolean addMpat(N_Mpat mpat)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+                //Genera instancia de objeto Paciente del Modelo
+                MPAT DbMpat = new MPAT();
+
+                //Popula el objeto DbPac
+                DbMpat.AlimentoPrueba = mpat.AlimentoPrueba;
+                DbMpat.Descripcion = mpat.Descripcion;
+                DbMpat.WikiURL = mpat.WikiUrl;
+                DbMpat.Id = mpat.Id;
+
+                //Guardar el objeto DbPac en el Context
+                try
+                {
+                    Context.MPATSet.Add(DbMpat);
+                    Context.SaveChanges();
+                    return true;
                 }
                 catch (Exception e)
                 {
@@ -318,6 +354,8 @@ namespace MainCore
             
             return cuenta;
         }
+
+
         /// <summary>
         /// Realiza el cálculo de contar los pares Antagonicos Perdidos
         /// </summary>
@@ -549,6 +587,90 @@ namespace MainCore
 
                             //añadir pac a la lista
                             listaHistorias.Add(his);
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        public bool getImagenId(int p, N_Imagenes imagen)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.ImagenesSet
+                           where arecord.IdPaciente == p
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        //volcamos los datos de la consulta a la variable historia
+                        imagen.Ruta = xdf.arecord.RutaImagen;
+                        imagen.Id = xdf.arecord.Id;
+                        imagen.IdMPAT = xdf.arecord.IdMPAT;
+                        imagen.IdPaciente = xdf.arecord.IdPaciente;
+                        imagen.NumeroCiclos = xdf.arecord.NumeroCiclos;
+                        imagen.NumeroToma = xdf.arecord.NumeroToma;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        public bool ListarImagenes(List<N_Imagenes> listaImagenes)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.ImagenesSet
+                           select new
+                           {
+                               arecord
+                           }).ToList();
+                try
+                {
+                    //Verifica que existan los registros
+                    if (xdf != null)
+                    {
+                        foreach (var registro in xdf)
+                        {
+                            //crear instancia de objeto N_Paciente
+                            N_Imagenes img = new N_Imagenes();
+                            img.Id = registro.arecord.Id;
+                            img.IdMPAT = registro.arecord.IdMPAT;
+                            img.IdPaciente = registro.arecord.IdPaciente;
+                            img.NumeroCiclos = registro.arecord.NumeroCiclos;
+                            img.NumeroToma = registro.arecord.NumeroToma;
+                            img.Ruta = registro.arecord.RutaImagen;
+                            img.Cara = registro.arecord.Cara;
+
+
+                            //añadir pac a la lista
+                            listaImagenes.Add(img);
                         }
                         return true;
                     }

@@ -26,7 +26,6 @@ namespace interfaceIntroduccionDatos
         public MainWindow()
         {
             InitializeComponent();
-             
         } 
         
         private void grabarDatos(object sender, RoutedEventArgs e)
@@ -39,8 +38,15 @@ namespace interfaceIntroduccionDatos
             //Nueva instancia de N_Paciente
             N_Paciente nuevopaciente = new N_Paciente();
             N_Historia historia = new N_Historia();
-            //Nueva instancia de Metoods
+            N_Imagenes imagen = new N_Imagenes();
+            N_Mpat mpat = new N_Mpat();
+            //Nueva instancia de Metodos
             Metodos metodos = new Metodos();
+
+            if (metodos.addMpat(mpat))
+            {
+                estado.Content = "Introduce datos. ";
+            }
 
             if (txtidentificacion.Text.CompareTo(String.Empty) == 0)
             {
@@ -95,11 +101,17 @@ namespace interfaceIntroduccionDatos
             }
             //inicializa el odontograma de la historia, inicializa ParesAntagPerdidos y DientesPerdidos
             getHistoria(historia); // cambiar a inicializar historia recibiendo el vector¿?¿?
-                        
+            getImagen(imagen);
+            Console.Write(imagen.Ruta.ToString());
             if(metodos.NuevoPaciente(nuevopaciente))
             {
                 if (metodos.addHistoria(historia, nuevopaciente)) {
+
+                    if (metodos.addImagen(imagen, nuevopaciente,mpat))
+                    {
                         estado.Content = "Paciente registrado con éxito. " + "Historia registrada con éxito";
+                    }
+                    
                 }
                 else
                 {
@@ -113,6 +125,20 @@ namespace interfaceIntroduccionDatos
                 estado.Content = "Error al registrar paciente";
             }
 
+        }
+
+        /// <summary>
+        /// Captura de la vista los datos de la imagen
+        /// </summary>
+        /// <param name="imagen"></param>
+        private void getImagen(N_Imagenes imagen)
+        {
+            imagen.Ruta = rutaImagen.Content.ToString();
+            //Console.Write("ruta1: "+imagen.Ruta);
+            //Console.Write("ruta2: "+rutaImagen.Content.ToString());
+            imagen.NumeroCiclos = 20; //predefinido
+            imagen.NumeroToma = 1; //predefinido
+            imagen.IdMPAT = 1; //predefinido
         }
 
         /// <summary>
@@ -394,6 +420,7 @@ namespace interfaceIntroduccionDatos
                 Metodos metodos = new Metodos();
                 N_Paciente paciente = new N_Paciente();
                 N_Historia historia = new N_Historia();
+                N_Imagenes imagen = new N_Imagenes();
                 paciente.DNI = txtidentificacion.Text;
 
                 if (metodos.getPacienteDNI(paciente.DNI, paciente))
@@ -402,6 +429,10 @@ namespace interfaceIntroduccionDatos
                     if (metodos.getHistoriaId(paciente.Id, historia))
                     {
                         pintaHistoria(historia);
+                        if (metodos.getImagenId(paciente.Id, imagen))
+                        {
+                            pintaImagen(imagen);
+                        }
                     }
                 }
                 else
@@ -414,6 +445,27 @@ namespace interfaceIntroduccionDatos
                 estado.Content = "Error: Para buscar debes introducir la Identificación.";
                 return;
             }
+        }
+
+        /// <summary>
+        /// Pinta en el interface la imagen
+        /// </summary>
+        /// <param name="img"></param>
+        private void pintaImagen(N_Imagenes img)
+        {
+            try
+            {
+                String path = "./muestras/74847911T.jpg";
+                rutaImagen.Content = path;//img.Ruta;
+                byte[] imageBytes = LoadImageData(path);//"./"+img.Ruta);
+                ImageSource imageSource = CreateImage(imageBytes, 120, 0);
+                imagen.Source = imageSource;
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error " + e);
+            }
+
         }
 
         /// <summary>
@@ -655,7 +707,7 @@ namespace interfaceIntroduccionDatos
                     //SaveImageData(imageBytes, @"c:\temp\MyResizedImage.jpg");
                     imagen.Source = imageSource;
                     SaveImageData(imageBytes, "./muestras/"+this.txtidentificacion.Text+".jpg");
-                    //rutaImagen.Content = "/muestras/"+this.txtidentificacion.Text + ".jpg";
+                    rutaImagen.Content = "/muestras/"+this.txtidentificacion.Text + ".jpg";
 
                     
 

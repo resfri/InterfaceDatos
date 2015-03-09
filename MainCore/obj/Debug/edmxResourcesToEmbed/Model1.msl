@@ -23,6 +23,7 @@
           <ScalarProperty Name="Cara" ColumnName="Cara" />
           <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
           <ScalarProperty Name="IdMPAT" ColumnName="IdMPAT" />
+          <ScalarProperty Name="RutaImagen" ColumnName="RutaImagen" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

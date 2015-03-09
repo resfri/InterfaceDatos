@@ -45,6 +45,7 @@
     <Property Name="Cara" Type="int" Nullable="false" />
     <Property Name="IdPaciente" Type="int" Nullable="false" />
     <Property Name="IdMPAT" Type="int" Nullable="false" />
+    <Property Name="RutaImagen" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="HistoriaClinicaSet">
     <Key>
@@ -162,6 +163,7 @@
           <NavigationProperty Name="Paciente" Relationship="Model1.PacienteImagenes" FromRole="Imagenes" ToRole="Paciente" />
           <Property Name="IdMPAT" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MPAT" Relationship="Model1.MPATImagenes" FromRole="Imagenes" ToRole="MPAT" />
+          <Property Name="RutaImagen" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="HistoriaClinica">
           <Key>
@@ -261,6 +263,7 @@
           <ScalarProperty Name="Cara" ColumnName="Cara" />
           <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
           <ScalarProperty Name="IdMPAT" ColumnName="IdMPAT" />
+          <ScalarProperty Name="RutaImagen" ColumnName="RutaImagen" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
