@@ -95,21 +95,17 @@ namespace interfaceIntroduccionDatos
             }
             //inicializa el odontograma de la historia, inicializa ParesAntagPerdidos y DientesPerdidos
             getHistoria(historia); // cambiar a inicializar historia recibiendo el vector¿?¿?
-
-            
+                        
             if(metodos.NuevoPaciente(nuevopaciente))
             {
-                                      
-                   
-                    
-                    if (metodos.addHistoria(historia, nuevopaciente)) {
-                         estado.Content = "Paciente registrado con éxito. " + "Historia registrada con éxito";
-                    }
-                    else
-                    {
-                        estado.Content = "Error al registrar historia del paciente" + nuevopaciente.DNI;
-                    }
-                    resetview();
+                if (metodos.addHistoria(historia, nuevopaciente)) {
+                        estado.Content = "Paciente registrado con éxito. " + "Historia registrada con éxito";
+                }
+                else
+                {
+                    estado.Content = "Error al registrar historia del paciente" + nuevopaciente.DNI;
+                }
+                resetview();
                 
             }
             else
@@ -278,35 +274,43 @@ namespace interfaceIntroduccionDatos
         /// Resetea los controles en la ventana principal
         /// </summary>
         private void resetview()
-        {     
-            txtedad.Text = "";
-            txtidentificacion.Text = "";
-            txtnombre.Text = "";
-            txtubicacion.Text = "";
+        {
+            try
+            {
+                txtedad.Text = "";
+                txtidentificacion.Text = "";
+                txtnombre.Text = "";
+                txtubicacion.Text = "";
 
-            rb_f.IsChecked = false;
-            rb_m.IsChecked = false;
+                rb_f.IsChecked = false;
+                rb_m.IsChecked = false;
 
-            D11.IsChecked = true; D12.IsChecked = true; D13.IsChecked = true; D14.IsChecked = true;
-            D15.IsChecked = true; D16.IsChecked = true; D17.IsChecked = true; D18.IsChecked = true;
+                D11.IsChecked = true; D12.IsChecked = true; D13.IsChecked = true; D14.IsChecked = true;
+                D15.IsChecked = true; D16.IsChecked = true; D17.IsChecked = true; D18.IsChecked = true;
 
-            D21.IsChecked = true; D22.IsChecked = true; D23.IsChecked = true; D24.IsChecked = true;
-            D25.IsChecked = true; D26.IsChecked = true; D27.IsChecked = true; D28.IsChecked = true;
+                D21.IsChecked = true; D22.IsChecked = true; D23.IsChecked = true; D24.IsChecked = true;
+                D25.IsChecked = true; D26.IsChecked = true; D27.IsChecked = true; D28.IsChecked = true;
 
-            D31.IsChecked = true; D32.IsChecked = true; D33.IsChecked = true; D34.IsChecked = true;
-            D35.IsChecked = true; D36.IsChecked = true; D37.IsChecked = true; D38.IsChecked = true;
+                D31.IsChecked = true; D32.IsChecked = true; D33.IsChecked = true; D34.IsChecked = true;
+                D35.IsChecked = true; D36.IsChecked = true; D37.IsChecked = true; D38.IsChecked = true;
 
-            D41.IsChecked = true; D42.IsChecked = true; D43.IsChecked = true; D44.IsChecked = true;
-            D45.IsChecked = true; D46.IsChecked = true; D47.IsChecked = true; D48.IsChecked = true;
+                D41.IsChecked = true; D42.IsChecked = true; D43.IsChecked = true; D44.IsChecked = true;
+                D45.IsChecked = true; D46.IsChecked = true; D47.IsChecked = true; D48.IsChecked = true;
 
-            byte[] imageBytes = LoadImageData("./Images/empty.jpg");
-            ImageSource imageSource = CreateImage(imageBytes, 120, 0);
-            imagen.Source = imageSource ;
+                byte[] imageBytes = LoadImageData("./Images/empty.jpg");
+                ImageSource imageSource = CreateImage(imageBytes, 120, 0);
+                imagen.Source = imageSource ;
 
-            rutaImagen.Content = "";
+                rutaImagen.Content = "";
 
-            labelNDP.Content = "";
-            labelNPP.Content = "";
+                labelNDP.Content = "";
+                labelNPP.Content = "";
+            }
+            catch (Exception e)
+            {
+                Console.Write("Error " + e);
+            }
+            
 
 
         }
@@ -384,19 +388,31 @@ namespace interfaceIntroduccionDatos
         /// <param name="e"></param>
         private void buscarPaciente(object sender, RoutedEventArgs e)
         {
-            
-            Metodos metodos = new Metodos();
-            N_Paciente paciente = new N_Paciente();
-            N_Historia historia = new N_Historia();
-            paciente.DNI = txtidentificacion.Text;
 
-            if( metodos.getPacienteDNI(paciente.DNI,paciente)){
-                pintaPaciente(paciente);
-                if(metodos.getHistoriaId(paciente.Id, historia)){
-                    pintaHistoria(historia);
+            if (txtidentificacion.Text.CompareTo("")!=0)
+            {
+                Metodos metodos = new Metodos();
+                N_Paciente paciente = new N_Paciente();
+                N_Historia historia = new N_Historia();
+                paciente.DNI = txtidentificacion.Text;
+
+                if (metodos.getPacienteDNI(paciente.DNI, paciente))
+                {
+                    pintaPaciente(paciente);
+                    if (metodos.getHistoriaId(paciente.Id, historia))
+                    {
+                        pintaHistoria(historia);
+                    }
                 }
-            }else{
-                estado.Content="Error al registrar paciente";
+                else
+                {
+                    estado.Content = "Error: Paciente no encontrado.";
+                }
+            }
+            else
+            {
+                estado.Content = "Error: Para buscar debes introducir la Identificación.";
+                return;
             }
         }
 
@@ -617,31 +633,86 @@ namespace interfaceIntroduccionDatos
             //WindowsClipboard win = new WindowsClipboard();
             //win.Show();
             //this.Close();
-            byte[] imageBytes = LoadImageData("./Images/empty.jpg");
 
-            ImageSource imageSource = CreateImage(imageBytes, 120, 0);
             if (Clipboard.ContainsImage())
-            {
-                //Console.Write("Paso por getImage");
-                imageSource = ImageFromClipboardDib();
+            {   if (txtidentificacion.Text.CompareTo("") == 0)
+                {  
+                    estado.Content = "Debes introducir los datos del paciente";
+                    return;
+                }
+                else
+                {
+                    byte[] imageBytes = LoadImageData(@"c:\temp\MyImage.jpg");
+                    
+                    // decode the image such that its width is 120 and its 
+                    // height is scaled proportionally
+                    ImageSource imageSource = CreateImage(imageBytes, 120, 0);
 
-                imagen.Source = imageSource;
+                    //Console.Write("Paso por getImage");
+                    imageSource = ImageFromClipboardDib();
+                    imageBytes = GetEncodedImageData(imageSource, ".jpg");
+
+                    //SaveImageData(imageBytes, @"c:\temp\MyResizedImage.jpg");
+                    imagen.Source = imageSource;
+                    SaveImageData(imageBytes, "./muestras/"+this.txtidentificacion.Text+".jpg");
+                    //rutaImagen.Content = "/muestras/"+this.txtidentificacion.Text + ".jpg";
+
+                    
+
+
+                }
             }
             else
             {
                 estado.Content= "Portapapales vacio";
             }
-            if (txtidentificacion.Text.CompareTo("") == 0)
-            {
-                estado.Content = "Debes introducir los datos del paciente";
-                return;
-            }
-            else
-            {
-                SaveImageData(imageBytes, "./muestras/"+this.txtidentificacion.Text+".jpg");
-                rutaImagen.Content = "/muestras/"+this.txtidentificacion.Text + ".jpg";
-            }
             
+            
+        }
+
+        internal byte[] GetEncodedImageData(ImageSource image, string preferredFormat)
+        {
+
+            byte[] result = null;
+            BitmapEncoder encoder = null;
+
+            switch (preferredFormat.ToLower())
+            {
+                case ".jpg":
+                case ".jpeg":
+                    encoder = new JpegBitmapEncoder();
+                    break;
+                case ".bmp":
+                    encoder = new BmpBitmapEncoder();
+                    break;
+                case ".png":
+                    encoder = new PngBitmapEncoder();
+                    break;
+                case ".tif":
+                case ".tiff":
+                    encoder = new TiffBitmapEncoder();
+                    break;
+                case ".gif":
+                    encoder = new GifBitmapEncoder();
+                    break;
+                case ".wmp":
+                    encoder = new WmpBitmapEncoder();
+                    break;
+            }
+
+            if (image is BitmapSource)
+            {
+                MemoryStream stream = new MemoryStream();
+                encoder.Frames.Add(BitmapFrame.Create(image as BitmapSource));
+                encoder.Save(stream);
+                stream.Seek(0, SeekOrigin.Begin);
+                result = new byte[stream.Length];
+                BinaryReader br = new BinaryReader(stream);
+                br.Read(result, 0, (int)stream.Length);
+                br.Close();
+                stream.Close();
+            }
+            return result;
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 2)]
@@ -782,9 +853,7 @@ namespace interfaceIntroduccionDatos
             fs.Close();
 
         }
-        private static ImageSource CreateImage(byte[] imageData,
-
-               int decodePixelWidth, int decodePixelHeight)
+        private static ImageSource CreateImage(byte[] imageData, int decodePixelWidth, int decodePixelHeight)
         {
 
             if (imageData == null) return null;

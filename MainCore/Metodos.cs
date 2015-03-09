@@ -478,7 +478,8 @@ namespace MainCore
                            where ahistoria.IdPaciente == arecord.Id
                            select new
                            {
-                               arecord,
+                               arecord.DNI,
+                               arecord.Id,
                                ahistoria
                            }).ToList();
                 try
@@ -493,7 +494,9 @@ namespace MainCore
                             historia.Id = registro.ahistoria.Id;
                             
                             N_Paciente paciente = new N_Paciente();
-                            paciente.Id = registro.arecord.Id;
+                            paciente.Id = registro.Id;
+                            paciente.DNI = registro.DNI;
+
                             N_Informe informe = new N_Informe(historia, paciente);
                             listado.Add(informe);
                             

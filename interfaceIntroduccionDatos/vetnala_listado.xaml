@@ -15,6 +15,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Recargar" HorizontalAlignment="Left" Margin="22,15,0,0" VerticalAlignment="Top" Width="118" Height="39" FontSize="18" Click="Button_Click"/>
-        <Button Content="Volver" HorizontalAlignment="Left" Margin="798,15,0,0" VerticalAlignment="Top" Width="96" Height="34" Click="Historias" FontSize="18"/>
+        <Button Content="Historial" HorizontalAlignment="Left" Margin="798,15,0,0" VerticalAlignment="Top" Width="96" Height="34" Click="Historias" FontSize="18"/>
     </Grid>
 </Window>

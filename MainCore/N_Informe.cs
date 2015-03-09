@@ -19,6 +19,7 @@ namespace MainCore
 
         public N_Informe(N_Historia hist, N_Paciente pac)
         {
+            
             hist = new N_Historia();
             pac = new N_Paciente();
         }
