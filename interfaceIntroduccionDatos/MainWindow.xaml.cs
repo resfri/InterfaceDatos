@@ -92,7 +92,7 @@ namespace interfaceIntroduccionDatos
             }
             if (txtubicacion.Text.CompareTo(String.Empty) == 0)
             {
-                estado.Content = "Error: Debe introducir la hubicacion";
+                estado.Content = "Error: Debe introducir la ubicacion";
                 return;
             }
             else
@@ -300,6 +300,7 @@ namespace interfaceIntroduccionDatos
                     }
                     historia.NumeroDientesPerdidos = metodos.contarDientesPerdidos(odontograma);
                     historia.ParesAntagPerdidos = metodos.contarParesAntagPerdidos(odontograma);
+                    
                     for (Int32 i=0; i<32; i++){
                         res = res + odontograma[i];
                     }

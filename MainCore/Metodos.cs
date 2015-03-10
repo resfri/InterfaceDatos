@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using WIA;
+using System.IO;
+using System.Reflection;
 namespace MainCore
 {
     [DataContract]
@@ -503,7 +505,8 @@ namespace MainCore
                 //Selecciona un registro de paciente por su Id
                 var xdf = (from arecord in Context.PacienteSet
                            from ahistoria in Context.HistoriaClinicaSet
-                           where ahistoria.IdPaciente == arecord.Id
+                           from aimagen in Context.ImagenesSet
+                           where ahistoria.IdPaciente == arecord.Id && aimagen.IdPaciente == arecord.Id
                            select new
                            {
                                arecord.DNI,
@@ -514,7 +517,8 @@ namespace MainCore
                                arecord.Ubicacion,
                                ahistoria.NumeroDientesPerdidos,
                                ahistoria.ParesAntagPerdidos,
-                               ahistoria.Odontograma
+                               ahistoria.Odontograma,
+                               aimagen.RutaImagen
 
                            }).ToList();
                 try
@@ -534,7 +538,10 @@ namespace MainCore
                             Dbinforme.Ubicacion = registro.Ubicacion;
                             Dbinforme.DNI = registro.DNI;
                             Dbinforme.Edad = registro.Edad;
+                            Dbinforme.Id = registro.Id;
+                            Dbinforme.rutaImagen = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +registro.RutaImagen; 
                             listado.Add(Dbinforme);
+
                             
                         }
                         return true;
@@ -733,9 +740,9 @@ namespace MainCore
                     if (xdf.arecord != null)
                     {
                         //volcamos los datos de la consulta a la variable pac
-                        
-                        this.deleteHistoria(historia);
-                        this.deleteImagen(imagen);
+
+                        this.deleteHistoria(xdf.arecord.Id);
+                        this.deleteImagen(xdf.arecord.Id);
                         this.BorrarPaciente(xdf.arecord.Id);
 
                         this.NuevoPaciente(pac);
@@ -757,12 +764,12 @@ namespace MainCore
             }
         }
 
-        private void deleteImagen(N_Imagenes imagen)
+        public void deleteImagen(Int32 ID)
         {
             using (Model1Container Context = new Model1Container())
             {//Selecciona un registro de paciente por su DNI
                 var xdf = (from arecord in Context.ImagenesSet
-                           where arecord.Id == imagen.Id
+                           where arecord.IdPaciente == ID
                            select new
                            {
                                arecord
@@ -787,12 +794,12 @@ namespace MainCore
             }
         }
 
-        private void deleteHistoria(N_Historia historia)
+        public void deleteHistoria(Int32 ID)
         {
             using (Model1Container Context = new Model1Container())
-            {//Selecciona un registro de paciente por su DNI
+            {
                 var xdf = (from arecord in Context.HistoriaClinicaSet
-                           where arecord.Id == historia.Id
+                           where arecord.IdPaciente == ID
                            select new
                            {
                                arecord

@@ -14,6 +14,20 @@
                 <DataGridTextColumn Binding="{Binding Path=NumeroDientesPerdidos}" Header="NumeroDientesPerdidos"/>
                 <DataGridTextColumn Binding="{Binding Path=Odontograma}" Header="Odontograma"/>
                 <DataGridTextColumn Binding="{Binding Path=ParesAntagPerdidos}" Header="ParesAntagPerdidos"/>
+                <DataGridTemplateColumn Header="Borrar">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="borrar_registro" CommandParameter="{Binding Path=Id}">Borrar</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Imagen">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Path=rutaImagen}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 
             </DataGrid.Columns>
         </DataGrid>

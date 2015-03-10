@@ -32,6 +32,8 @@ namespace MainCore
         public Int32 ParesAntagPerdidos  {get; set;}
         [DataMember]
         public String Odontograma { get; set; }
+        [DataMember]
+        public String rutaImagen { get; set; }
 
         public N_Informe()
         {
@@ -43,6 +45,8 @@ namespace MainCore
             this.NumeroDientesPerdidos = 0;
             this.ParesAntagPerdidos = 0;
             this.Odontograma = String.Empty;
+            this.Id = 0;
+            rutaImagen = String.Empty;
         }
 
         
