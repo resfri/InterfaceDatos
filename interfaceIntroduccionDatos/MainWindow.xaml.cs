@@ -694,15 +694,17 @@ namespace interfaceIntroduccionDatos
                 }
                 else
                 {
-                    byte[] imageBytes = LoadImageData(@"c:\temp\MyImage.jpg");
-                    
+                    //byte[] imageBytes = LoadImageData(@"c:\temp\MyImage.jpg");
+                    //byte[] imageBytes = new byte[];
+                    //byte[] imageBytes = new byte[1 * 1];
                     // decode the image such that its width is 120 and its 
                     // height is scaled proportionally
-                    ImageSource imageSource = CreateImage(imageBytes, 120, 0);
+                    //ImageSource imageSource = CreateImage(imageBytes, 120, 0);
 
                     //Console.Write("Paso por getImage");
+                    ImageSource imageSource;
                     imageSource = ImageFromClipboardDib();
-                    imageBytes = GetEncodedImageData(imageSource, ".jpg");
+                    byte[] imageBytes = GetEncodedImageData(imageSource, ".jpg");
 
                     //SaveImageData(imageBytes, @"c:\temp\MyResizedImage.jpg");
                     imagen.Source = imageSource;
