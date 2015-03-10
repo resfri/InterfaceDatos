@@ -31,7 +31,7 @@ namespace MainCore
         /// </summary>
         public N_Paciente()
         {
-            //Id = 0;
+            Id = 0;
             DNI = String.Empty;
             Nombre = String.Empty;
             Edad = 0;
