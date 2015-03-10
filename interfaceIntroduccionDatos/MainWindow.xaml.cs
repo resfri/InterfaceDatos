@@ -455,7 +455,7 @@ namespace interfaceIntroduccionDatos
         {
             try
             {
-                String path = "./muestras/74847911T.jpg";
+                String path = "."+img.Ruta;
                 rutaImagen.Content = path;//img.Ruta;
                 byte[] imageBytes = LoadImageData(path);//"./"+img.Ruta);
                 ImageSource imageSource = CreateImage(imageBytes, 120, 0);
