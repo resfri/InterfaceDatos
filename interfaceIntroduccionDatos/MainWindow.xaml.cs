@@ -103,27 +103,40 @@ namespace interfaceIntroduccionDatos
             getHistoria(historia); // cambiar a inicializar historia recibiendo el vector¿?¿?
             getImagen(imagen);
             Console.Write(imagen.Ruta.ToString());
-            if(metodos.NuevoPaciente(nuevopaciente))
-            {
-                if (metodos.addHistoria(historia, nuevopaciente)) {
 
-                    if (metodos.addImagen(imagen, nuevopaciente,mpat))
-                    {
-                        estado.Content = "Paciente registrado con éxito. " + "Historia registrada con éxito";
-                    }
-                    
-                }
-                else
+            // Compruebo si el elemento existe
+            if (metodos.existe(nuevopaciente.DNI))
+            {
+                if (metodos.updatePaciente(nuevopaciente, historia, imagen, mpat))
                 {
-                    estado.Content = "Error al registrar historia del paciente" + nuevopaciente.DNI;
+                    estado.Content = "Paciente actualizado con éxito";
                 }
-                resetview();
-                
             }
             else
             {
-                estado.Content = "Error al registrar paciente";
+                if(metodos.NuevoPaciente(nuevopaciente))
+                {
+                    if (metodos.addHistoria(historia, nuevopaciente)) {
+
+                        if (metodos.addImagen(imagen, nuevopaciente,mpat))
+                        {
+                            estado.Content = "Paciente registrado con éxito. " + "Historia registrada con éxito";
+                        }
+                    
+                    }
+                    else
+                    {
+                        estado.Content = "Error al registrar historia del paciente" + nuevopaciente.DNI;
+                    }
+                    resetview();
+                
+                }
+                else
+                {
+                    estado.Content = "Error al registrar paciente";
+                }
             }
+
 
         }
 
@@ -292,7 +305,7 @@ namespace interfaceIntroduccionDatos
                     }
                     Console.Write(res);
                     historia.Odontograma = res;
-            
+                    Console.Write(res);//
         }
 
 
@@ -346,34 +359,34 @@ namespace interfaceIntroduccionDatos
         /// Genera fichero de texto plano con los datos de los pacientes
         /// </summary>
         /// <param name="paciente"></param>
-        private void grabarFicheroPaciente(Paciente paciente)
-        {
-            //try
-            //{
-            //    StringBuilder sb = new StringBuilder();
-            //        sb.AppendLine(
-            //            txtidentificacion.Text + ";" + 
-            //            txtnombre.Text + ";" + 
-            //            txtedad.Text + ";" +
-            //            txtsexo.Text + ";" + 
-            //            txtubicacion.Text + ";" + 
-            //            txtfechaRegistro.Text + "\n");
-                
-            //    using (StreamWriter sw = new StreamWriter("Salida.txt", true))
-            //    {
+        //private void grabarFicheroPaciente(Paciente paciente)
+        //{
+        //    try
+        //    {
+        //        StringBuilder sb = new StringBuilder();
+        //        sb.AppendLine(
+        //            txtidentificacion.Text + ";" +
+        //            txtnombre.Text + ";" +
+        //            txtedad.Text + ";" +
+        //            txtsexo.Text + ";" +
+        //            txtubicacion.Text + ";" +
+        //            txtfechaRegistro.Text + "\n");
 
-            //        sw.Write(sb.ToString());
-            //        sw.Close();
-            //    }
-                
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine("The file could not be read:");
-            //    Console.WriteLine(e.Message);
-            //}
+        //        using (StreamWriter sw = new StreamWriter("Salida.txt", true))
+        //        {
 
-        }
+        //            sw.Write(sb.ToString());
+        //            sw.Close();
+        //        }
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine("The file could not be read:");
+        //        Console.WriteLine(e.Message);
+        //    }
+
+        //}
 
         /// <summary>
         /// Desde fichero de texto plano incorpora los datos de los pacientes
@@ -682,10 +695,7 @@ namespace interfaceIntroduccionDatos
 
         private void botonRecuperaImagenPortapapeles(object sender, RoutedEventArgs e)
         {
-            //WindowsClipboard win = new WindowsClipboard();
-            //win.Show();
-            //this.Close();
-
+            
             if (Clipboard.ContainsImage())
             {   if (txtidentificacion.Text.CompareTo("") == 0)
                 {  
@@ -694,13 +704,7 @@ namespace interfaceIntroduccionDatos
                 }
                 else
                 {
-                    //byte[] imageBytes = LoadImageData(@"c:\temp\MyImage.jpg");
-                    //byte[] imageBytes = new byte[];
-                    //byte[] imageBytes = new byte[1 * 1];
-                    // decode the image such that its width is 120 and its 
-                    // height is scaled proportionally
-                    //ImageSource imageSource = CreateImage(imageBytes, 120, 0);
-
+                    
                     //Console.Write("Paso por getImage");
                     ImageSource imageSource;
                     imageSource = ImageFromClipboardDib();
@@ -856,6 +860,7 @@ namespace interfaceIntroduccionDatos
                 }
             }
         }
+
         private ImageSource ImageFromClipboardDib()
         {
             MemoryStream ms = Clipboard.GetData("DeviceIndependentBitmap") as MemoryStream;
@@ -907,6 +912,7 @@ namespace interfaceIntroduccionDatos
             fs.Close();
 
         }
+
         private static ImageSource CreateImage(byte[] imageData, int decodePixelWidth, int decodePixelHeight)
         {
 

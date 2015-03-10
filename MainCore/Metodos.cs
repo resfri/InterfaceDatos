@@ -234,6 +234,7 @@ namespace MainCore
                         Dbhistoria.Protesis = hist.Protesis;
                         Dbhistoria.NumeroDientesPerdidos = hist.NumeroDientesPerdidos; 
                         Dbhistoria.ParesAntagPerdidos = hist.ParesAntagPerdidos;
+
                         Context.HistoriaClinicaSet.Add(Dbhistoria);
                         Context.SaveChanges();
                         return true;
@@ -680,6 +681,138 @@ namespace MainCore
                 {
                     Console.Write("Error " + e);
                     return false;
+                }
+            }
+        }
+
+        public bool existe(string p)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+                //Selecciona un registro de paciente por su DNI
+                var xdf = (from arecord in Context.PacienteSet
+                           where arecord.DNI.CompareTo(p) == 0
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        public bool updatePaciente(N_Paciente pac, N_Historia historia, N_Imagenes imagen, N_Mpat mpat)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+                //Selecciona un registro de paciente por su DNI
+                var xdf = (from arecord in Context.PacienteSet
+                           where arecord.DNI.CompareTo(pac.DNI) == 0
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        //volcamos los datos de la consulta a la variable pac
+                        
+                        this.deleteHistoria(historia);
+                        this.deleteImagen(imagen);
+                        this.BorrarPaciente(xdf.arecord.Id);
+
+                        this.NuevoPaciente(pac);
+                        this.addImagen(imagen, pac, mpat);
+                        this.addHistoria(historia, pac);                        
+                        
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        private void deleteImagen(N_Imagenes imagen)
+        {
+            using (Model1Container Context = new Model1Container())
+            {//Selecciona un registro de paciente por su DNI
+                var xdf = (from arecord in Context.ImagenesSet
+                           where arecord.Id == imagen.Id
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {//Borra el registro
+                        Context.ImagenesSet.Remove(xdf.arecord);
+                        Context.SaveChanges();
+                    }
+                    else
+                    {
+
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                }
+            }
+        }
+
+        private void deleteHistoria(N_Historia historia)
+        {
+            using (Model1Container Context = new Model1Container())
+            {//Selecciona un registro de paciente por su DNI
+                var xdf = (from arecord in Context.HistoriaClinicaSet
+                           where arecord.Id == historia.Id
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {//Borra el registro
+                        Context.HistoriaClinicaSet.Remove(xdf.arecord);
+                        Context.SaveChanges();
+                    }
+                    else
+                    {
+
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
                 }
             }
         }
