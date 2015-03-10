@@ -34,3 +34,5 @@ C:\Users\Jaime\Source\Repos\InterfaceDatos3\MainCore\bin\Debug\EntityFramework.S
 C:\Users\Jaime\Source\Repos\InterfaceDatos3\MainCore\obj\Debug\MainCore.csprojResolveAssemblyReference.cache
 C:\Users\Jaime\Source\Repos\InterfaceDatos3\MainCore\obj\Debug\MainCore.dll
 C:\Users\Jaime\Source\Repos\InterfaceDatos3\MainCore\obj\Debug\MainCore.pdb
+C:\Users\Jaime\Source\Repos\InterfaceDatos3\MainCore\obj\Debug\Interop.WIA.dll
+C:\Users\Jaime\Source\Repos\InterfaceDatos3\MainCore\obj\Debug\MainCore.csproj.ResolveComReference.cache

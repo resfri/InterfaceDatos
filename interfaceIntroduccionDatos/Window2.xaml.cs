@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MainCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,22 +12,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using MainCore;
 
 namespace interfaceIntroduccionDatos
 {
     /// <summary>
-    /// Interaction logic for vetnala_listado.xaml
+    /// Interaction logic for Window2.xaml
     /// </summary>
-    public partial class vetnala_listado : Window
+    public partial class Window2 : Window
     {
-        public vetnala_listado()
+        public Window2()
         {
             InitializeComponent();
             Loaded += MyWindow_Loaded;
-
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             cargarDatos();
@@ -39,30 +37,26 @@ namespace interfaceIntroduccionDatos
         private void cargarDatos()
         {
             Metodos metodo = new Metodos();
-            List<N_Informe> listaInformes = new List<N_Informe>();
+            List<N_Imagenes> listaImagenes = new List<N_Imagenes>();
 
-            if (metodo.listarInformes(listaInformes))
+            if (metodo.ListarImagenes(listaImagenes))
             {
-                grid_listado.ItemsSource = listaInformes;
+                grid_listado.ItemsSource = listaImagenes;
 
             }
             else
             {
-                MessageBox.Show("Error al listar pacientes");
+                MessageBox.Show("Error al listar Historias");
             }
 
 
         }
 
-        private void Historias(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Window1 win = new Window1();
+            MainWindow win = new MainWindow();
             win.Show();
-            //this.Close();
+            this.Close();
         }
-
-       
     }
-
-
 }

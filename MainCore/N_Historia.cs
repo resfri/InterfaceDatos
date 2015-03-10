@@ -71,7 +71,6 @@ namespace MainCore
             ACV = false;
             ParalisisFacial = false;
             GradoDesnutricion = 0;
-
         }
     }
 }

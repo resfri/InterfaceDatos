@@ -40,6 +40,7 @@
     <Property Name="Cara" Type="int" Nullable="false" />
     <Property Name="IdPaciente" Type="int" Nullable="false" />
     <Property Name="IdMPAT" Type="int" Nullable="false" />
+    <Property Name="RutaImagen" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="HistoriaClinicaSet">
     <Key>

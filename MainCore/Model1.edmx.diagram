@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="48e5656f4f1a4a508a4eeed89c67bb67" Name="Diagram1" ZoomLevel="94" >
-        <EntityTypeShape EntityType="Model1.Paciente" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.Imagenes" Width="1.5" PointX="3.625" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.HistoriaClinica" Width="2.125" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.MPAT" Width="1.5" PointX="6.125" PointY="0.5" />
+      <Diagram DiagramId="48e5656f4f1a4a508a4eeed89c67bb67" Name="Diagram1" ZoomLevel="74" >
+        <EntityTypeShape EntityType="Model1.Paciente" Width="1.5" PointX="4.125" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.Imagenes" Width="1.5" PointX="6.625" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.HistoriaClinica" Width="2.125" PointX="1.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.MPAT" Width="1.5" PointX="9" PointY="1.375" />
         <AssociationConnector Association="Model1.PacienteImagenes" />
         <AssociationConnector Association="Model1.PacienteHistoriaClinica" />
         <AssociationConnector Association="Model1.MPATImagenes" />

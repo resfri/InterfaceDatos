@@ -44,6 +44,7 @@
     <NavigationProperty Name="Paciente" Relationship="Model1.PacienteImagenes" FromRole="Imagenes" ToRole="Paciente" />
     <Property Name="IdMPAT" Type="Int32" Nullable="false" />
     <NavigationProperty Name="MPAT" Relationship="Model1.MPATImagenes" FromRole="Imagenes" ToRole="MPAT" />
+    <Property Name="RutaImagen" Type="String" Nullable="false" />
   </EntityType>
   <EntityType Name="HistoriaClinica">
     <Key>

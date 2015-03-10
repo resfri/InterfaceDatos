@@ -1,7 +1,7 @@
 ﻿<Window x:Class="interfaceIntroduccionDatos.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Ficha Paciente" Height="400" Width="600" FontSize="14">
+        Title="Ficha Paciente" Height="428" Width="600" FontSize="14">
     <Grid Margin="0,0,0,-0.6" HorizontalAlignment="Left" Width="590">
 
         <Image Height="261" Margin="354,67,-4,0" VerticalAlignment="Top" Source=".\Images\odontograma.jpg" IsEnabled="False"/>
@@ -14,6 +14,8 @@
         <Button Click="buscarPaciente" Content="Buscar Paciente" HorizontalAlignment="Left" Margin="248,43,0,0" VerticalAlignment="Top" Width="112"/>
         <TextBox Name="txtnombre" HorizontalAlignment="Left" Height="23" Margin="108,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
         <TextBox Name="txtedad" HorizontalAlignment="Left" Height="23" Margin="108,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
+        <RadioButton x:Name="rb_m" Content="Masculino" HorizontalAlignment="Left" Margin="108,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.607,0.667" GroupName="rb_sexo"/>
+        <RadioButton x:Name="rb_f" Content="Femenino" HorizontalAlignment="Left" Margin="198,126,0,0" VerticalAlignment="Top" GroupName="rb_sexo"/>
         <TextBox Name="txtubicacion" HorizontalAlignment="Left" Height="23" Margin="108,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
         <Separator HorizontalAlignment="Left" Height="14" Margin="195,175,0,0" VerticalAlignment="Top" Width="340" RenderTransformOrigin="0.5,0.5">
             <Separator.RenderTransform>
@@ -25,7 +27,7 @@
                 </TransformGroup>
             </Separator.RenderTransform>
         </Separator>
-        <Button Name="bGrabarPac" Click="grabarDatos" Content="Grabar Datos" HorizontalAlignment="Left" Margin="263,195,0,0" VerticalAlignment="Top" Width="97" ClickMode="Press"/>
+        <Button Name="bGrabarPac" Click="grabarDatos" Content="Grabar Datos" HorizontalAlignment="Left" Margin="380,338,0,0" VerticalAlignment="Top" Width="97" ClickMode="Press"/>
         <CheckBox Name="D18" Content="" HorizontalAlignment="Left" Margin="396,162,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox Name="D17" Content="" HorizontalAlignment="Left" Margin="396,142,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox Name="D16" Content="" HorizontalAlignment="Left" Margin="396,126,0,0" VerticalAlignment="Top" IsChecked="True"/>
@@ -54,9 +56,9 @@
         <CheckBox Name="D41" Content="" HorizontalAlignment="Left" Margin="457,317,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox Name="D43" Content="" HorizontalAlignment="Left" Margin="425,299,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox Name="D33" Content="" HorizontalAlignment="Left" Margin="506,299,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <Separator HorizontalAlignment="Left" Height="14" Margin="12,236,0,0" VerticalAlignment="Top" Width="337"/>
-        <Button Content="Obtener Imágen" HorizontalAlignment="Left" Margin="12,284,0,0" VerticalAlignment="Top" Width="125"/>
-        <Label Content="IMAGEN PRUEBA MASTICATORIA" HorizontalAlignment="Left" Margin="12,251,0,0" VerticalAlignment="Top"/>
+        <Separator HorizontalAlignment="Left" Height="14" Margin="12,179,0,0" VerticalAlignment="Top" Width="337"/>
+        <Button Content="Obtener Imágen" HorizontalAlignment="Left" Margin="16,221,0,0" VerticalAlignment="Top" Width="125" Click="botonRecuperaImagenPortapapeles"/>
+        <Label Content="IMAGEN PRUEBA MASTICATORIA" HorizontalAlignment="Left" Margin="16,192,0,0" VerticalAlignment="Top"/>
         <CheckBox Name="D47" Content="" HorizontalAlignment="Left" Margin="396,232,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox Name="D48" Content="" HorizontalAlignment="Left" Margin="396,212,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox Name="D37" Content="" HorizontalAlignment="Left" Margin="536,232,0,0" VerticalAlignment="Top" IsChecked="True"/>
@@ -66,10 +68,12 @@
 
         <Label Content="DATOS DEL PACIENTE" HorizontalAlignment="Left" Margin="53,12,0,0" VerticalAlignment="Top"/>
         <Button Click="leerFicheroPaciente" Content="Leer" HorizontalAlignment="Left" Margin="259,70,0,0" VerticalAlignment="Top" Width="95" IsEnabled="False" Visibility="Hidden"/>
-        <RadioButton x:Name="rb_m" Content="Masculino" HorizontalAlignment="Left" Margin="108,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.607,0.667" GroupName="rb_sexo"/>
-        <RadioButton x:Name="rb_f" Content="Femenino" HorizontalAlignment="Left" Margin="198,126,0,0" VerticalAlignment="Top" GroupName="rb_sexo"/>
-        <Label x:Name="rutaImagen" Content="" HorizontalAlignment="Left" Margin="12,317,0,0" VerticalAlignment="Top" Width="337"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="24" Margin="268,336,0,0" VerticalAlignment="Top" Width="86" Click="Button_Click"/>
+        <Label x:Name="rutaImagen" Content="" HorizontalAlignment="Left" Margin="16,248,0,0" VerticalAlignment="Top" Width="213" Height="29" FontSize="16"/>
+        <Button Content="Ver Datos " HorizontalAlignment="Left" Height="24" Margin="494,337,0,0" VerticalAlignment="Top" Width="86" Click="botonGeneraListado"/>
+        <Label Name="labelNDP"  Content="NDP" HorizontalAlignment="Left" Margin="536,299,0,0" VerticalAlignment="Top"/>
+        <Label Name="labelNPP"  Content="PAP" HorizontalAlignment="Left" Margin="374,299,0,0" VerticalAlignment="Top"/>
+        <Image Name="imagen" HorizontalAlignment="Left" Height="137" Margin="234,198,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Name="estado" Content="Introducir los datos del paciente" Margin="10,361,10,0" VerticalAlignment="Top" Height="28"/>
 
     </Grid>
 </Window>
