@@ -370,31 +370,20 @@ namespace MainCore
                 //{ 
                 //    cuenta++;
                 //}else 
-                if(odont[n].CompareTo("F") == 0)
-                {
-                    cuenta++;
-                }
-                else if (odont[n + 24].CompareTo("F") == 0)
+                if (odont[n].CompareTo("F") == 0 || odont[n + 24].CompareTo("F") == 0)
                 {
                     cuenta++;
                 }
             }
-            for (n = 11; n < 19; n++)
+            for (n = 11; n < 16; n++)
             {
                 //if (odont[n].CompareTo(odont[n + 19-11]) == 0)
                 //{
-                    if (odont[n].CompareTo("F") == 0)
+                if (odont[n].CompareTo("F") == 0 || odont[n + 8].CompareTo("F") == 0)
                     {
                         cuenta++;
                     }
-                    else if (odont[n + 8].CompareTo("F") == 0)
-                        {
-                            cuenta++;
-                        }
-                        
-                    
-                        
-                
+            
             }
             return cuenta;
         }
