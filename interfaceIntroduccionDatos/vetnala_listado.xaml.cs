@@ -68,10 +68,8 @@ namespace interfaceIntroduccionDatos
             Int32 miId = 0;
             miId = (Int32)Id;
             Metodos metodo = new Metodos();
-            metodo.deleteHistoria(miId);
-            metodo.deleteImagen(miId);
-            metodo.BorrarPaciente(miId);
-
+            
+            metodo.DeletePacienteID(miId);
             cargarDatos();
             
         }
@@ -79,7 +77,7 @@ namespace interfaceIntroduccionDatos
         private Image devuelveImagen(String ruta)
         {
             Image img = new Image();
-            byte[] imageBytes = LoadImageData("."+ruta);
+            byte[] imageBytes = LoadImageData(".\\"+ruta);
             ImageSource imageSource = CreateImage(imageBytes, 120, 0);
             img.Source = imageSource;
             return img;
