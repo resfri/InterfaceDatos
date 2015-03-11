@@ -27,33 +27,7 @@ namespace MainCore
         /// </summary>
         /// <param name="pac">Objeto N_Paciente</param>
         /// <returns></returns>
-        public Boolean InsertaPaciente(N_Paciente pac, N_Historia hist, N_Imagenes imag, N_Mpat mpat)
-        {
-            Int32 id = 0;
-            if (addPaciente(pac))
-            {
-                id = buscaPacienteDNI(pac.DNI);
-                if (id == 0)
-                {
-                    return false;
-                }
-                else
-                {
-                    addHistoria(hist, id);
-                    addImagen(imag, id, mpat);
-                    return true;
-
-                }
-
-            }
-            else
-            {
-                return false;
-            }
-            
-        }
-
-        private Boolean addPaciente(N_Paciente pac)
+        public Boolean NuevoPaciente(N_Paciente pac)
         {
             using (Model1Container Context = new Model1Container())
             {
@@ -80,228 +54,8 @@ namespace MainCore
                     Console.Write("Error " + e);
                     return false;
                 }
-            }
-        }
+                
 
-        /// <summary>
-        /// Guarda los valores de la historia medica en la base de datos
-        /// </summary>
-        /// <param name="hist">Valores de historia medica</param>
-        /// <param name="pac">paciente al que pertenece el odontograma</param>
-        /// <returns></returns>
-        private void addHistoria(N_Historia hist, Int32 id)
-        {
-            using (Model1Container Context = new Model1Container())
-            {
-                HistoriaClinica Dbhistoria = new HistoriaClinica();
-
-                Dbhistoria.IdPaciente = id;
-                Dbhistoria.Odontograma = hist.Odontograma;
-                Dbhistoria.ACV = hist.ACV;
-                Dbhistoria.EnfermedadCardioVascular = hist.EnfermedadCardioVascular;
-                Dbhistoria.EnfermedadRenal = hist.EnfermedadRenal;
-                Dbhistoria.EstadoSaludGeneral = hist.EstadoSaludGeneral;
-                Dbhistoria.GradoDesnutricion = hist.GradoDesnutricion;
-                Dbhistoria.GradoEdentulismo = hist.GradoEdentulismo;
-                Dbhistoria.ICTUS = hist.ICTUS;
-                Dbhistoria.Implantes = hist.Implantes;
-                Dbhistoria.NumeroCariados = hist.NumeroCariados;
-                Dbhistoria.NumeroDientesObturados = hist.NumeroDientesObturados;
-                Dbhistoria.Ortodoncia = hist.Ortodoncia;
-                Dbhistoria.ParalisisFacial = hist.ParalisisFacial;
-                Dbhistoria.Protesis = hist.Protesis;
-                Dbhistoria.NumeroDientesPerdidos = hist.NumeroDientesPerdidos;
-                Dbhistoria.ParesAntagPerdidos = hist.ParesAntagPerdidos;
-
-                try
-                    {
-                        Context.HistoriaClinicaSet.Add(Dbhistoria);
-                        Context.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.Write("Error " + e);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Guarda los datos de las imagenes
-        /// </summary>
-        /// <param name="imagen">Valores de la imagen</param>
-        /// <param name="pac">paciente al que pertenece el odontograma</param>
-        /// <returns></returns>
-        private void addImagen(N_Imagenes imagen, Int32 id, N_Mpat mpat)
-        {
-
-            using (Model1Container Context = new Model1Container())
-            {
-                Imagenes Dbimagenes = new Imagenes();
-                Dbimagenes.IdPaciente = id;
-                Dbimagenes.IdMPAT = mpat.Id;
-                Dbimagenes.NumeroCiclos = imagen.NumeroCiclos;
-                Dbimagenes.NumeroToma = imagen.NumeroToma;
-                Dbimagenes.Cara = imagen.Cara;
-                Dbimagenes.RutaImagen = imagen.Ruta;
-
-
-
-                //Guardar el objeto Dbimagenes en el Context
-                try
-                {
-                    Context.ImagenesSet.Add(Dbimagenes);
-                    Context.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.Write("Error " + e);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Alta de MPAT
-        /// </summary>
-        /// <param name="mpat">Elemento tipo Mpat que tenemos que dar de alta</param>
-        /// <returns></returns>
-        public Boolean addMpat(N_Mpat mpat)
-        {
-            using (Model1Container Context = new Model1Container())
-            {
-                //Genera instancia de objeto Paciente del Modelo
-                MPAT DbMpat = new MPAT();
-
-                //Popula el objeto DbPac
-                DbMpat.AlimentoPrueba = mpat.AlimentoPrueba;
-                DbMpat.Descripcion = mpat.Descripcion;
-                DbMpat.WikiURL = mpat.WikiUrl;
-                DbMpat.Id = mpat.Id;
-
-                //Guardar el objeto DbPac en el Context
-                try
-                {
-                    Context.MPATSet.Add(DbMpat);
-                    Context.SaveChanges();
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    Console.Write("Error " + e);
-                    return false;
-                }
-            }
-        }
-        
-        public Boolean BorraPaciente(N_Paciente pac)
-        {
-            Int32 id = buscaPacienteDNI(pac.DNI);
-            if (id != 0)
-            {
-                deleteHistoria(id);
-                deleteImagen(id);
-                deletePaciente(id);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-            
-        }
-        public void DeletePacienteID(Int32 id)
-        {
-            deleteHistoria(id);
-            deleteImagen(id);
-            deletePaciente(id);
-        }
-        /// <summary>
-        /// Borra un registro de paciente de la base de datos
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
-        private void deletePaciente(Int32 Id)
-        {
-            using (Model1Container Context = new Model1Container())
-            {
-                //Selecciona un registro de paciente por su Id
-                var xdf = (from arecord in Context.PacienteSet
-                           where arecord.Id == Id
-                           select new
-                           {
-                               arecord
-                           }).FirstOrDefault();
-                try
-                {
-                    //Comprueba si el resultado es vacio
-                    if (xdf.arecord != null)
-                    {
-                        //Borra el registro
-                        Context.PacienteSet.Remove(xdf.arecord);
-                        Context.SaveChanges();
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.Write("Error " + e);
-                }
-            }
-        }
-        private void deleteImagen(Int32 ID)
-        {
-            using (Model1Container Context = new Model1Container())
-            {//Selecciona un registro de paciente por su DNI
-                var xdf = (from arecord in Context.ImagenesSet
-                           where arecord.IdPaciente == ID
-                           select new
-                           {
-                               arecord
-                           }).FirstOrDefault();
-                try
-                {
-                    //Comprueba si el resultado es vacio
-                    if (xdf.arecord != null)
-                    {//Borra el registro
-                        Context.ImagenesSet.Remove(xdf.arecord);
-                        Context.SaveChanges();
-                    }
-                    else
-                    {
-
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.Write("Error " + e);
-                }
-            }
-        }
-        private void deleteHistoria(Int32 ID)
-        {
-            using (Model1Container Context = new Model1Container())
-            {
-                var xdf = (from arecord in Context.HistoriaClinicaSet
-                           where arecord.IdPaciente == ID
-                           select new
-                           {
-                               arecord
-                           }).FirstOrDefault();
-                try
-                {
-                    //Comprueba si el resultado es vacio
-                    if (xdf.arecord != null)
-                    {//Borra el registro
-                        Context.HistoriaClinicaSet.Remove(xdf.arecord);
-                        Context.SaveChanges();
-                    }
-                    else
-                    {
-
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.Write("Error " + e);
-                }
             }
         }
 
@@ -350,7 +104,46 @@ namespace MainCore
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Borra un registro de paciente de la base de datos
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public Boolean BorrarPaciente(Int32 Id)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.PacienteSet
+                           where arecord.Id == Id
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        //Borra el registro
+                        Context.PacienteSet.Remove(xdf.arecord);
+                        Context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
         /// <summary>
         /// Rellena una lista de objetos Paciente a partir de los registro de la base de datos
         /// </summary>
@@ -401,7 +194,152 @@ namespace MainCore
             }
 
         }
-        
+
+        /// <summary>
+        /// Guarda los valores de la historia medica en la base de datos
+        /// </summary>
+        /// <param name="hist">Valores de historia medica</param>
+        /// <param name="pac">paciente al que pertenece el odontograma</param>
+        /// <returns></returns>
+        public Boolean addHistoria(N_Historia hist, N_Paciente pac)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+                
+                var xdf = (from arecord in Context.PacienteSet
+                           where arecord.DNI == pac.DNI
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+
+                try
+                {
+                    if (xdf.arecord != null)
+                    {
+                        HistoriaClinica Dbhistoria = new HistoriaClinica();
+
+                        Dbhistoria.IdPaciente= xdf.arecord.Id;
+                        Dbhistoria.Odontograma= hist.Odontograma;
+                        Dbhistoria.ACV = hist.ACV;
+                        Dbhistoria.EnfermedadCardioVascular = hist.EnfermedadCardioVascular;
+                        Dbhistoria.EnfermedadRenal = hist.EnfermedadRenal;
+                        Dbhistoria.EstadoSaludGeneral = hist.EstadoSaludGeneral;
+                        Dbhistoria.GradoDesnutricion = hist.GradoDesnutricion;
+                        Dbhistoria.GradoEdentulismo = hist.GradoEdentulismo;
+                        Dbhistoria.ICTUS = hist.ICTUS;
+                        Dbhistoria.Implantes = hist.Implantes;
+                        Dbhistoria.NumeroCariados = hist.NumeroCariados;
+                        Dbhistoria.NumeroDientesObturados = hist.NumeroDientesObturados;
+                        Dbhistoria.Ortodoncia = hist.Ortodoncia;
+                        Dbhistoria.ParalisisFacial = hist.ParalisisFacial;
+                        Dbhistoria.Protesis = hist.Protesis;
+                        Dbhistoria.NumeroDientesPerdidos = hist.NumeroDientesPerdidos; 
+                        Dbhistoria.ParesAntagPerdidos = hist.ParesAntagPerdidos;
+
+                        Context.HistoriaClinicaSet.Add(Dbhistoria);
+                        Context.SaveChanges();
+                        return true;
+                        
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Guarda los datos de las imagenes
+        /// </summary>
+        /// <param name="imagen">Valores de la imagen</param>
+        /// <param name="pac">paciente al que pertenece el odontograma</param>
+        /// <returns></returns>
+        public Boolean addImagen(N_Imagenes imagen, N_Paciente pac, N_Mpat mpat)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+
+                var xdf = (from arecord in Context.PacienteSet
+                           where arecord.DNI == pac.DNI
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+
+                try
+                {
+                    if (xdf.arecord != null)
+                    {
+                        Imagenes Dbimagenes = new Imagenes();
+
+                        Dbimagenes.IdPaciente = xdf.arecord.Id;
+                        Dbimagenes.IdMPAT = mpat.Id;
+                        Dbimagenes.NumeroCiclos = imagen.NumeroCiclos;
+                        Dbimagenes.NumeroToma = imagen.NumeroToma;
+                        Dbimagenes.Cara = imagen.Cara;
+                        Dbimagenes.RutaImagen = imagen.Ruta;
+                        Dbimagenes.Paciente = xdf.arecord;
+
+                        
+
+                        Context.ImagenesSet.Add(Dbimagenes);
+                        Context.SaveChanges();
+                        return true;
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Alta de MPAT
+        /// </summary>
+        /// <param name="mpat">Elemento tipo Mpat que tenemos que dar de alta</param>
+        /// <returns></returns>
+        public Boolean addMpat(N_Mpat mpat)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+                //Genera instancia de objeto Paciente del Modelo
+                MPAT DbMpat = new MPAT();
+
+                //Popula el objeto DbPac
+                DbMpat.AlimentoPrueba = mpat.AlimentoPrueba;
+                DbMpat.Descripcion = mpat.Descripcion;
+                DbMpat.WikiURL = mpat.WikiUrl;
+                DbMpat.Id = mpat.Id;
+
+                //Guardar el objeto DbPac en el Context
+                try
+                {
+                    Context.MPATSet.Add(DbMpat);
+                    Context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
         /// <summary>
         /// Dato un odontograma, devuelve el numero de dientes perdidos
         /// </summary>
@@ -419,7 +357,8 @@ namespace MainCore
             
             return cuenta;
         }
-        
+
+
         /// <summary>
         /// Realiza el cálculo de contar los pares Antagonicos Perdidos
         /// </summary>
@@ -458,13 +397,13 @@ namespace MainCore
         /// <param name="dni">Id del paciente</param>
         /// <param name="pac">Referencia a Objeto N_Paciente</param>
         /// <returns>Retorna Id si existe, si error retorna 0</returns>
-        public Boolean getPacienteDNI(String DNI, N_Paciente pac)
+        public Boolean getPacienteDNI(String dni, N_Paciente pac)
         {
             using (Model1Container Context = new Model1Container())
             {
                 //Selecciona un registro de paciente por su DNI
                 var xdf = (from arecord in Context.PacienteSet
-                           where arecord.DNI.CompareTo(DNI)==0
+                           where arecord.DNI.CompareTo(pac.DNI)==0
                            select new
                            {
                                arecord
@@ -552,50 +491,7 @@ namespace MainCore
                 }
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="p"></param>
-        /// <param name="imagen"></param>
-        /// <returns></returns>
-        public bool getImagenId(int p, N_Imagenes imagen)
-        {
-            using (Model1Container Context = new Model1Container())
-            {
-                //Selecciona un registro de paciente por su Id
-                var xdf = (from arecord in Context.ImagenesSet
-                           where arecord.IdPaciente == p
-                           select new
-                           {
-                               arecord
-                           }).FirstOrDefault();
-                try
-                {
-                    //Comprueba si el resultado es vacio
-                    if (xdf.arecord != null)
-                    {
-                        //volcamos los datos de la consulta a la variable historia
-                        imagen.Ruta = xdf.arecord.RutaImagen;
-                        imagen.Id = xdf.arecord.Id;
-                        imagen.IdMPAT = xdf.arecord.IdMPAT;
-                        imagen.IdPaciente = xdf.arecord.IdPaciente;
-                        imagen.NumeroCiclos = xdf.arecord.NumeroCiclos;
-                        imagen.NumeroToma = xdf.arecord.NumeroToma;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.Write("Error " + e);
-                    return false;
-                }
-            }
-        }
-
+     
         /// <summary>
         /// Crea un listado con los informes almacenados en la base de datos
         /// </summary>
@@ -712,6 +608,44 @@ namespace MainCore
             }
         }
 
+        public bool getImagenId(int p, N_Imagenes imagen)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.ImagenesSet
+                           where arecord.IdPaciente == p
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        //volcamos los datos de la consulta a la variable historia
+                        imagen.Ruta = xdf.arecord.RutaImagen;
+                        imagen.Id = xdf.arecord.Id;
+                        imagen.IdMPAT = xdf.arecord.IdMPAT;
+                        imagen.IdPaciente = xdf.arecord.IdPaciente;
+                        imagen.NumeroCiclos = xdf.arecord.NumeroCiclos;
+                        imagen.NumeroToma = xdf.arecord.NumeroToma;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
         public bool ListarImagenes(List<N_Imagenes> listaImagenes)
         {
             using (Model1Container Context = new Model1Container())
@@ -788,14 +722,14 @@ namespace MainCore
                 }
             }
         }
-        
-        public Int32 buscaPacienteDNI(string p)
+
+        public bool updatePaciente(N_Paciente pac, N_Historia historia, N_Imagenes imagen, N_Mpat mpat)
         {
             using (Model1Container Context = new Model1Container())
             {
                 //Selecciona un registro de paciente por su DNI
                 var xdf = (from arecord in Context.PacienteSet
-                           where arecord.DNI.CompareTo(p) == 0
+                           where arecord.DNI.CompareTo(pac.DNI) == 0
                            select new
                            {
                                arecord
@@ -805,40 +739,89 @@ namespace MainCore
                     //Comprueba si el resultado es vacio
                     if (xdf.arecord != null)
                     {
+                        //volcamos los datos de la consulta a la variable pac
+
+                        this.deleteHistoria(xdf.arecord.Id);
+                        this.deleteImagen(xdf.arecord.Id);
+                        this.BorrarPaciente(xdf.arecord.Id);
+
+                        this.NuevoPaciente(pac);
+                        this.addImagen(imagen, pac, mpat);
+                        this.addHistoria(historia, pac);                        
                         
-                        return xdf.arecord.Id;
+                        return true;
                     }
                     else
                     {
-                        return 0;
+                        return false;
                     }
                 }
                 catch (Exception e)
                 {
                     Console.Write("Error " + e);
-                    return 0;
-                }
-            }
-        }
-        
-        public bool updatePaciente(N_Paciente pac, N_Historia historia, N_Imagenes imagen, N_Mpat mpat)
-        {
-            if (BorraPaciente(pac))
-            {
-                if (InsertaPaciente(pac, historia, imagen, mpat))
-                {
-                    return true;
-                }
-                else { 
                     return false;
                 }
             }
-            else
-            {
-                return false;
+        }
+
+        public void deleteImagen(Int32 ID)
+        {
+            using (Model1Container Context = new Model1Container())
+            {//Selecciona un registro de paciente por su DNI
+                var xdf = (from arecord in Context.ImagenesSet
+                           where arecord.IdPaciente == ID
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {//Borra el registro
+                        Context.ImagenesSet.Remove(xdf.arecord);
+                        Context.SaveChanges();
+                    }
+                    else
+                    {
+
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                }
             }
-            
-            
+        }
+
+        public void deleteHistoria(Int32 ID)
+        {
+            using (Model1Container Context = new Model1Container())
+            {
+                var xdf = (from arecord in Context.HistoriaClinicaSet
+                           where arecord.IdPaciente == ID
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {//Borra el registro
+                        Context.HistoriaClinicaSet.Remove(xdf.arecord);
+                        Context.SaveChanges();
+                    }
+                    else
+                    {
+
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                }
+            }
         }
     }
 
