@@ -46,88 +46,97 @@ namespace interfaceIntroduccionDatos
             if (metodos.addMpat(mpat))
             {
                 estado.Content = "Introduce datos. ";
-            
+            }
 
-                if (txtidentificacion.Text.CompareTo(String.Empty) == 0)
-                {
-                    estado.Content = "Error: Debe introducir el nombre del paciente";
-                    return;
-                }
-                else
-                {
-                    nuevopaciente.DNI = txtidentificacion.Text;
-                }
-                if (txtnombre.Text.CompareTo(String.Empty) == 0)
-                {
-                    estado.Content = "Error: Debe introducir el nombre del paciente";
-                    return;
-                }
-                else
-                {
-                    nuevopaciente.Nombre = txtnombre.Text;
-                }
+            if (txtidentificacion.Text.CompareTo(String.Empty) == 0)
+            {
+                estado.Content = "Error: Debe introducir el nombre del paciente";
+                return;
+            }
+            else
+            {
+                nuevopaciente.DNI = txtidentificacion.Text;
+            }
+            if (txtnombre.Text.CompareTo(String.Empty) == 0)
+            {
+                estado.Content = "Error: Debe introducir el nombre del paciente";
+                return;
+            }
+            else
+            {
+                nuevopaciente.Nombre = txtnombre.Text;
+            }
             
-                if (txtedad.Text.CompareTo(String.Empty)==0)
-                {
-                    estado.Content = "Error: Debe introducir la edad";
-                    return;
-                }
-                else
-                {
-                    nuevopaciente.Edad = Int32.Parse(txtedad.Text);
-                }
+            if (txtedad.Text.CompareTo(String.Empty)==0)
+            {
+                estado.Content = "Error: Debe introducir la edad";
+                return;
+            }
+            else
+            {
+                nuevopaciente.Edad = Int32.Parse(txtedad.Text);
+            }
             
-                if(rb_m.IsChecked == true)
-                {
-                    nuevopaciente.Sexo = 1;
-                }
-                else if(rb_f.IsChecked == true)
-                {
-                    nuevopaciente.Sexo = 2;
-                }
-                else
-                {
-                    estado.Content = "Error: Debe seleccionar el sexo del paciente";
-                    return;
-                }
-                if (txtubicacion.Text.CompareTo(String.Empty) == 0)
-                {
-                    estado.Content = "Error: Debe introducir la ubicacion";
-                    return;
-                }
-                else
-                {
-                    nuevopaciente.Ubicacion = txtubicacion.Text;
-                }
-                //inicializa el odontograma de la historia, inicializa ParesAntagPerdidos y DientesPerdidos
-                getHistoria(historia); // cambiar a inicializar historia recibiendo el vector¿?¿?
-                getImagen(imagen);
-                Console.Write(imagen.Ruta.ToString());
+            if(rb_m.IsChecked == true)
+            {
+                nuevopaciente.Sexo = 1;
+            }
+            else if(rb_f.IsChecked == true)
+            {
+                nuevopaciente.Sexo = 2;
+            }
+            else
+            {
+                estado.Content = "Error: Debe seleccionar el sexo del paciente";
+                return;
+            }
+            if (txtubicacion.Text.CompareTo(String.Empty) == 0)
+            {
+                estado.Content = "Error: Debe introducir la ubicacion";
+                return;
+            }
+            else
+            {
+                nuevopaciente.Ubicacion = txtubicacion.Text;
+            }
+            //inicializa el odontograma de la historia, inicializa ParesAntagPerdidos y DientesPerdidos
+            getHistoria(historia); // cambiar a inicializar historia recibiendo el vector¿?¿?
+            getImagen(imagen);
+            Console.Write(imagen.Ruta.ToString());
 
-                // Compruebo si el elemento existe
-                if (metodos.existe(nuevopaciente.DNI))
+            // Compruebo si el elemento existe
+            if (metodos.existe(nuevopaciente.DNI))
+            {
+                if (metodos.updatePaciente(nuevopaciente, historia, imagen, mpat))
                 {
-                    if (metodos.updatePaciente(nuevopaciente, historia, imagen, mpat))
-                    {
-                        estado.Content = "Paciente actualizado con éxito";
-                    }
-                }
-                else
-                {
-                    if(metodos.InsertaPaciente(nuevopaciente, historia, imagen,mpat))
-                    {
-                        estado.Content = "Paciente registrada con éxito";
-                        resetview();
-                    }else
-                    {
-                        estado.Content = "Error al registrar paciente"+nuevopaciente.DNI;
-                    }
+                    estado.Content = "Paciente actualizado con éxito";
                 }
             }
             else
             {
-                return ;
+                if(metodos.NuevoPaciente(nuevopaciente))
+                {
+                    if (metodos.addHistoria(historia, nuevopaciente)) {
+
+                        if (metodos.addImagen(imagen, nuevopaciente,mpat))
+                        {
+                            estado.Content = "Paciente registrado con éxito. " + "Historia registrada con éxito";
+                        }
+                    
+                    }
+                    else
+                    {
+                        estado.Content = "Error al registrar historia del paciente" + nuevopaciente.DNI;
+                    }
+                    resetview();
+                
+                }
+                else
+                {
+                    estado.Content = "Error al registrar paciente";
+                }
             }
+
 
         }
 
@@ -152,6 +161,7 @@ namespace interfaceIntroduccionDatos
         {
             String[] odontograma = new String[32];
             String res = "";
+            N_Paciente paciente = new N_Paciente();
             Metodos metodos = new Metodos();
                         
                     for (Int32 i = 0; i <= 31; i++)
@@ -294,9 +304,9 @@ namespace interfaceIntroduccionDatos
                     for (Int32 i=0; i<32; i++){
                         res = res + odontograma[i];
                     }
-                    //Console.Write(res);
+                    Console.Write(res);
                     historia.Odontograma = res;
-                    //Console.Write(res);//
+                    Console.Write(res);//
         }
 
 
@@ -327,7 +337,7 @@ namespace interfaceIntroduccionDatos
                 D41.IsChecked = true; D42.IsChecked = true; D43.IsChecked = true; D44.IsChecked = true;
                 D45.IsChecked = true; D46.IsChecked = true; D47.IsChecked = true; D48.IsChecked = true;
 
-                byte[] imageBytes = LoadImageData("Images\\empty.jpg");
+                byte[] imageBytes = LoadImageData("./Images/empty.jpg");
                 ImageSource imageSource = CreateImage(imageBytes, 120, 0);
                 imagen.Source = imageSource ;
 
@@ -418,6 +428,7 @@ namespace interfaceIntroduccionDatos
         /// <param name="e"></param>
         private void buscarPaciente(object sender, RoutedEventArgs e)
         {
+
             if (txtidentificacion.Text.CompareTo("")!=0)
             {
                 Metodos metodos = new Metodos();
@@ -702,8 +713,11 @@ namespace interfaceIntroduccionDatos
 
                     //SaveImageData(imageBytes, @"c:\temp\MyResizedImage.jpg");
                     imagen.Source = imageSource;
-                    SaveImageData(imageBytes, "muestras\\"+this.txtidentificacion.Text+".jpg");
-                    rutaImagen.Content = "\\muestras\\"+this.txtidentificacion.Text + ".jpg";
+                    SaveImageData(imageBytes, "./muestras/"+this.txtidentificacion.Text+".jpg");
+                    rutaImagen.Content = "/muestras/"+this.txtidentificacion.Text + ".jpg";
+
+                    
+
 
                 }
             }
