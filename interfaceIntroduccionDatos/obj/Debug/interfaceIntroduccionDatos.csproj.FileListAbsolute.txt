@@ -118,3 +118,5 @@ C:\Users\Fabian\Source\Repos\InterfaceDatos2\interfaceIntroduccionDatos\obj\Debu
 C:\Users\Fabian\Source\Repos\InterfaceDatos2\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.csproj.GenerateResource.Cache
 C:\Users\Fabian\Source\Repos\InterfaceDatos2\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.exe
 C:\Users\Fabian\Source\Repos\InterfaceDatos2\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.pdb
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\Interop.WIA.dll
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\interfaceIntroduccionDatos.csproj.ResolveComReference.cache
