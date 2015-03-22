@@ -36,109 +36,88 @@ namespace interfaceIntroduccionDatos
             //MessageBox.Show( mensaje, "Grabar Datos");
 
             //Nueva instancia de N_Paciente
-            N_Paciente nuevopaciente = new N_Paciente();
+            N_Paciente pac = new N_Paciente();
             N_Historia historia = new N_Historia();
             N_Imagenes imagen = new N_Imagenes();
             N_Mpat mpat = new N_Mpat();
+
             //Nueva instancia de Metodos
             Metodos metodos = new Metodos();
+            Int32 sexo= 0;
+
 
             if (metodos.addMpat(mpat))
             {
                 estado.Content = "Introduce datos. ";
-            }
-
-            if (txtidentificacion.Text.CompareTo(String.Empty) == 0)
-            {
-                estado.Content = "Error: Debe introducir el nombre del paciente";
-                return;
-            }
-            else
-            {
-                nuevopaciente.DNI = txtidentificacion.Text;
-            }
-            if (txtnombre.Text.CompareTo(String.Empty) == 0)
-            {
-                estado.Content = "Error: Debe introducir el nombre del paciente";
-                return;
-            }
-            else
-            {
-                nuevopaciente.Nombre = txtnombre.Text;
-            }
-            
-            if (txtedad.Text.CompareTo(String.Empty)==0)
-            {
-                estado.Content = "Error: Debe introducir la edad";
-                return;
-            }
-            else
-            {
-                nuevopaciente.Edad = Int32.Parse(txtedad.Text);
-            }
-            
-            if(rb_m.IsChecked == true)
-            {
-                nuevopaciente.Sexo = 1;
-            }
-            else if(rb_f.IsChecked == true)
-            {
-                nuevopaciente.Sexo = 2;
-            }
-            else
-            {
-                estado.Content = "Error: Debe seleccionar el sexo del paciente";
-                return;
-            }
-            if (txtubicacion.Text.CompareTo(String.Empty) == 0)
-            {
-                estado.Content = "Error: Debe introducir la ubicacion";
-                return;
-            }
-            else
-            {
-                nuevopaciente.Ubicacion = txtubicacion.Text;
-            }
-            //inicializa el odontograma de la historia, inicializa ParesAntagPerdidos y DientesPerdidos
-            getHistoria(historia); // cambiar a inicializar historia recibiendo el vector¿?¿?
-            getImagen(imagen);
-            Console.Write(imagen.Ruta.ToString());
-
-            // Compruebo si el elemento existe
-            if (metodos.existe(nuevopaciente.DNI))
-            {
-                if (metodos.updatePaciente(nuevopaciente, historia, imagen, mpat))
+                if (rb_m.IsChecked == true)
                 {
-                    estado.Content = "Paciente actualizado con éxito";
+                    sexo = 1;
                 }
-            }
-            else
-            {
-                if(metodos.NuevoPaciente(nuevopaciente))
+                else if (rb_f.IsChecked == true)
                 {
-                    if (metodos.addHistoria(historia, nuevopaciente)) {
-
-                        if (metodos.addImagen(imagen, nuevopaciente,mpat))
-                        {
-                            estado.Content = "Paciente registrado con éxito. " + "Historia registrada con éxito";
-                        }
-                    
-                    }
-                    else
-                    {
-                        estado.Content = "Error al registrar historia del paciente" + nuevopaciente.DNI;
-                    }
-                    resetview();
-                
+                    sexo = 2;
                 }
                 else
                 {
-                    estado.Content = "Error al registrar paciente";
+                    estado.Content = "Error: Debe seleccionar el sexo del paciente";
+                    return;
+                }
+
+                //inicializa el odontograma de la historia, inicializa ParesAntagPerdidos y DientesPerdidos
+                getHistoria(historia); // cambiar a inicializar historia recibiendo el vector¿?¿?
+                getImagen(imagen);
+                String p1 = txtidentificacion.Text;
+                String p2 = txtnombre.Text;
+                String p3 = txtedad.Text;
+                String p4 = txtubicacion.Text;
+
+                Console.Write(imagen.Ruta.ToString());
+
+                    estado.Content = metodos.checkPaciente( p1, p2, p3, p4,sexo, pac);
+                // Compruebo si el elemento existe
+                if (metodos.existe(pac.DNI))
+                {
+                    if (metodos.updatePaciente(pac, historia, imagen, mpat))
+                    {
+                        estado.Content = "Paciente actualizado con éxito";
+                        return;
+
+                    }
+                }
+                else
+                {
+                    if (metodos.NuevoPaciente(pac))
+                    {
+                        if (metodos.addHistoria(historia, pac))
+                        {
+
+                            if (metodos.addImagen(imagen, pac, mpat))
+                            {
+                                estado.Content= "Paciente registrado con éxito. " + "Historia registrada con éxito";
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            estado.Content= "Error al registrar historia del paciente" + pac.DNI;
+                            return;
+                        }
+
+
+                    }
+                    else
+                    {
+                        estado.Content= "Error al registrar paciente";
+                        return;
+                    }
+
                 }
             }
-
-
+            resetview();
+            
         }
+
+
 
         /// <summary>
         /// Captura de la vista los datos de la imagen

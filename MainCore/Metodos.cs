@@ -357,8 +357,7 @@ namespace MainCore
             
             return cuenta;
         }
-
-
+        
         /// <summary>
         /// Realiza el cálculo de contar los pares Antagonicos Perdidos
         /// </summary>
@@ -822,6 +821,48 @@ namespace MainCore
                     Console.Write("Error " + e);
                 }
             }
+        }
+
+        public String checkPaciente(String p1, String p2, String p3, String p4, int sexo, N_Paciente paciente)
+        {
+            N_Paciente nuevopaciente = new N_Paciente();
+
+            if (p1.CompareTo(String.Empty) == 0)
+            {
+                return "Error: Debe introducir el nombre del paciente";
+            }
+            else
+            {
+                nuevopaciente.DNI = p1;
+            }
+
+            if (p2.CompareTo(String.Empty) == 0)
+            {
+                return "Error: Debe introducir el nombre del paciente";
+            }
+            else
+            {
+                nuevopaciente.Nombre = p2;
+            }
+
+            if (p3.CompareTo(String.Empty) == 0)
+            {
+                return "Error: Debe introducir la edad";
+            }
+            else
+            {
+                nuevopaciente.Edad = Int32.Parse(p3);
+            }
+
+            if (p4.CompareTo(String.Empty) == 0)
+            {
+                return "Error: Debe introducir la ubicacion";
+            }
+            else
+            {
+                nuevopaciente.Ubicacion = p4;
+            }
+            return "";
         }
     }
 
