@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
-using WIA;
-using System.IO;
+using System.Windows;
+using MainCore;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 using System.Reflection;
+
 namespace MainCore
 {
     [DataContract]
@@ -291,6 +293,7 @@ namespace MainCore
 
                         Context.ImagenesSet.Add(Dbimagenes);
                         Context.SaveChanges();
+                        
                         return true;
 
                     }
@@ -357,7 +360,7 @@ namespace MainCore
             
             return cuenta;
         }
-        
+
         /// <summary>
         /// Realiza el cálculo de contar los pares Antagonicos Perdidos
         /// </summary>
@@ -823,47 +826,75 @@ namespace MainCore
             }
         }
 
-        public String checkPaciente(String p1, String p2, String p3, String p4, int sexo, N_Paciente paciente)
+        public bool checkPaciente(string p1, string p2, string p3, string p4, int sexo, N_Paciente pac, String error)
         {
-            N_Paciente nuevopaciente = new N_Paciente();
+            
 
             if (p1.CompareTo(String.Empty) == 0)
             {
-                return "Error: Debe introducir el nombre del paciente";
+                error =  "Error: Debe introducir el nombre del paciente";
+                return true;
             }
             else
             {
-                nuevopaciente.DNI = p1;
+                pac.DNI = p1;
             }
-
             if (p2.CompareTo(String.Empty) == 0)
             {
-                return "Error: Debe introducir el nombre del paciente";
+                error =  "Error: Debe introducir el nombre del paciente";
+                return true;
             }
             else
             {
-                nuevopaciente.Nombre = p2;
+                pac.Nombre = p2;
             }
 
             if (p3.CompareTo(String.Empty) == 0)
             {
-                return "Error: Debe introducir la edad";
+                error =   "Error: Debe introducir la edad";
+                return true;
             }
             else
             {
-                nuevopaciente.Edad = Int32.Parse(p3);
+                pac.Edad = Int32.Parse(p3);
             }
 
+            if (sexo ==1 && sexo ==2)
+            {
+                pac.Sexo = sexo;
+            }
+            else 
+            {
+                error =  "Error: Debe seleccionar el sexo del paciente";
+                return true;
+            }
             if (p4.CompareTo(String.Empty) == 0)
             {
-                return "Error: Debe introducir la ubicacion";
+                error = "Error: Debe introducir la ubicacion";
+                return true;
             }
             else
             {
-                nuevopaciente.Ubicacion = p4;
+                pac.Ubicacion = p4;
             }
-            return "";
+            return false;
         }
+
+        public void grabaImagenCarpeta(byte[] imageData, String identificacion)
+        {
+
+            String ruta = "\\muestras\\" + identificacion + ".jpg";
+            FileStream fs = new FileStream(ruta, FileMode.Create, FileAccess.Write);
+
+            BinaryWriter bw = new BinaryWriter(fs);
+
+            bw.Write(imageData);
+            bw.Close();
+
+            fs.Close();
+                        
+        }
+        
     }
 
 }

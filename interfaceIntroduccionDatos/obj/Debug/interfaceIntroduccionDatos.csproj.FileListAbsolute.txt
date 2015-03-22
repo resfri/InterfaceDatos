@@ -130,3 +130,7 @@ C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\
 C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\Window1.g.cs
 C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\Window2.g.cs
 C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\obj\Debug\WindowsClipboard.g.cs
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\bin\Debug\Database1.mdf
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\bin\Debug\Database1_log.ldf
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\bin\Debug\MainCore.dll
+C:\Users\Jaime\Source\Repos\InterfaceDatos\interfaceIntroduccionDatos\bin\Debug\MainCore.pdb

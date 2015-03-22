@@ -49,7 +49,7 @@ namespace MainCore
         public Int32 GradoDesnutricion { get; set; }
 
         /// <summary>
-        /// Constructor general de la clase N_Historia
+        /// Constructor general de la clase N_Paciente
         /// </summary>
         public N_Historia()
         {

@@ -34,17 +34,25 @@ namespace interfaceIntroduccionDatos
             //String mensaje = paciente.toString();
             //grabarFicheroPaciente(paciente);
             //MessageBox.Show( mensaje, "Grabar Datos");
-
+            
+            //Nueva instancia de Metodos
+            Metodos metodos = new Metodos();
             //Nueva instancia de N_Paciente
             N_Paciente pac = new N_Paciente();
             N_Historia historia = new N_Historia();
             N_Imagenes imagen = new N_Imagenes();
             N_Mpat mpat = new N_Mpat();
-
-            //Nueva instancia de Metodos
-            Metodos metodos = new Metodos();
+                        
             Int32 sexo= 0;
-
+            String ident = txtidentificacion.Text;
+            String nombre = txtnombre.Text;
+            String edad = txtedad.Text;
+            String ubicacion = txtubicacion.Text;
+            String error = string.Empty;
+            //inicializa el odontograma de la historia, inicializa ParesAntagPerdidos y DientesPerdidos
+            getHistoria(historia); // guarda en la variable historia el estado de la vista
+            getImagen(imagen); // guarda la ruta de la imagen
+            Console.Write(imagen.Ruta.ToString());
 
             if (metodos.addMpat(mpat))
             {
@@ -63,54 +71,52 @@ namespace interfaceIntroduccionDatos
                     return;
                 }
 
-                //inicializa el odontograma de la historia, inicializa ParesAntagPerdidos y DientesPerdidos
-                getHistoria(historia); // cambiar a inicializar historia recibiendo el vector¿?¿?
-                getImagen(imagen);
-                String p1 = txtidentificacion.Text;
-                String p2 = txtnombre.Text;
-                String p3 = txtedad.Text;
-                String p4 = txtubicacion.Text;
-
-                Console.Write(imagen.Ruta.ToString());
-
-                    estado.Content = metodos.checkPaciente( p1, p2, p3, p4,sexo, pac);
-                // Compruebo si el elemento existe
-                if (metodos.existe(pac.DNI))
+                if (metodos.checkPaciente(ident, nombre, edad, ubicacion, sexo, pac, error) == false)
                 {
-                    if (metodos.updatePaciente(pac, historia, imagen, mpat))
+
+
+                    // Compruebo si el elemento existe
+                    if (metodos.existe(pac.DNI))
                     {
-                        estado.Content = "Paciente actualizado con éxito";
-                        return;
+                        if (metodos.updatePaciente(pac, historia, imagen, mpat))
+                        {
+                            estado.Content = "Paciente actualizado con éxito";
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (metodos.NuevoPaciente(pac))
+                        {
+                            if (metodos.addHistoria(historia, pac))
+                            {
+
+                                if (metodos.addImagen(imagen, pac, mpat))
+                                {
+                                    estado.Content = "Paciente registrado con éxito. " + "Historia registrada con éxito";
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                estado.Content = "Error al registrar historia del paciente" + pac.DNI;
+                                return;
+                            }
+
+
+                        }
+                        else
+                        {
+                            estado.Content = "Error al registrar paciente";
+                            return;
+                        }
 
                     }
                 }
                 else
                 {
-                    if (metodos.NuevoPaciente(pac))
-                    {
-                        if (metodos.addHistoria(historia, pac))
-                        {
-
-                            if (metodos.addImagen(imagen, pac, mpat))
-                            {
-                                estado.Content= "Paciente registrado con éxito. " + "Historia registrada con éxito";
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            estado.Content= "Error al registrar historia del paciente" + pac.DNI;
-                            return;
-                        }
-
-
-                    }
-                    else
-                    {
-                        estado.Content= "Error al registrar paciente";
-                        return;
-                    }
-
+                    estado.Content = error;
+                    return;
                 }
             }
             resetview();
@@ -126,6 +132,7 @@ namespace interfaceIntroduccionDatos
         private void getImagen(N_Imagenes imagen)
         {
             imagen.Ruta = rutaImagen.Content.ToString();
+
             //Console.Write("ruta1: "+imagen.Ruta);
             //Console.Write("ruta2: "+rutaImagen.Content.ToString());
             imagen.NumeroCiclos = 20; //predefinido
@@ -675,16 +682,17 @@ namespace interfaceIntroduccionDatos
 
         private void botonRecuperaImagenPortapapeles(object sender, RoutedEventArgs e)
         {
-            
+            Metodos metodos = new Metodos();
             if (Clipboard.ContainsImage())
-            {   if (txtidentificacion.Text.CompareTo("") == 0)
-                {  
+            {
+                if (txtidentificacion.Text.CompareTo("") == 0)
+                {
                     estado.Content = "Debes introducir los datos del paciente";
                     return;
                 }
                 else
                 {
-                    
+
                     //Console.Write("Paso por getImage");
                     ImageSource imageSource;
                     imageSource = ImageFromClipboardDib();
@@ -692,20 +700,24 @@ namespace interfaceIntroduccionDatos
 
                     //SaveImageData(imageBytes, @"c:\temp\MyResizedImage.jpg");
                     imagen.Source = imageSource;
-                    SaveImageData(imageBytes, "./muestras/"+this.txtidentificacion.Text+".jpg");
-                    rutaImagen.Content = "/muestras/"+this.txtidentificacion.Text + ".jpg";
-
-                    
-
+                    if (this.txtidentificacion.Text.CompareTo(string.Empty)==0)
+                    {
+                        estado.Content ="Para obtener la imagen, debe completadar el campo identificacion";
+                    }
+                    else
+                    {
+                        metodos.grabaImagenCarpeta(imageBytes, this.txtidentificacion.Text);
+                    }
+                    rutaImagen.Content = "/muestras/" + this.txtidentificacion.Text + ".jpg";
 
                 }
             }
             else
             {
-                estado.Content= "Portapapales vacio";
+                estado.Content = "Portapapales vacio";
             }
-            
-            
+
+
         }
 
         internal byte[] GetEncodedImageData(ImageSource image, string preferredFormat)
@@ -753,6 +765,7 @@ namespace interfaceIntroduccionDatos
             return result;
         }
 
+        
         [StructLayout(LayoutKind.Sequential, Pack = 2)]
         private struct BITMAPFILEHEADER
         {
@@ -875,24 +888,7 @@ namespace interfaceIntroduccionDatos
             }
             return null;
         }
-
-        private static void SaveImageData(byte[] imageData, string filePath)
-        {
-
-            FileStream fs = new FileStream(filePath, FileMode.Create,
-
-                FileAccess.Write);
-
-            BinaryWriter bw = new BinaryWriter(fs);
-
-            bw.Write(imageData);
-
-            bw.Close();
-
-            fs.Close();
-
-        }
-
+        
         private static ImageSource CreateImage(byte[] imageData, int decodePixelWidth, int decodePixelHeight)
         {
 
